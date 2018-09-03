@@ -22,7 +22,6 @@
 
         nvm alias default node
         ```
-        
 
 - Install Docker:
     - Install docker, then ensure you can run the following command in the terminal:
@@ -30,6 +29,11 @@
     docker ps
     ```
     If you get a permissions error, search solutions for running docker without sudo, or permissions error in windows.
+
+- Install Graphcool globally from npm:
+    ```sh
+    npm i -g graphcool
+    ```
 
 - Clone this repo
     ```sh
@@ -53,6 +57,8 @@
     npm start
     ```
     **Now the client should be running on localhost:3000**
+    
+- If you want to restore the database from a backup, refer to the readme.md in the `server` folder
 
 
 ## Extra Reads
