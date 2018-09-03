@@ -56,7 +56,7 @@
     ```sh
     npm start
     ```
-    **Now the client should be running on localhost:3000**
+    **Now open up your browser to localhost:3000**
     
 - If you want to restore the database from a backup, refer to the readme.md in the `server` folder
 
