@@ -1,0 +1,40 @@
+{
+  "name": "inventory-manager",
+  "description": "An inventory management app",
+  "scripts": {
+    "server": "cd server; npm start",
+    "server:mysql": "cd server; npm run mysql",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --port 3000",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "postinstall": "cd server;npm install"
+  },
+  "dependencies": {
+    "apollo-client": "^1.2.2",
+    "vue": "^2.5.17",
+    "vue-apollo": "^2.1.0-beta.8",
+    "vuetify": "^1.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@types/lodash": "^4.14.116",
+    "apollo-boost": "^0.1.15",
+    "babel-loader": "^8.0.0",
+    "cross-env": "^1.0.8",
+    "css-loader": "^1.0.0",
+    "fetch": "^1.1.0",
+    "file-loader": "^2.0.0",
+    "lodash": "^4.17.10",
+    "node-fetch": "^2.2.0",
+    "style-loader": "^0.23.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "vue-loader": "^15.4.1",
+    "vue-router": "^3.0.1",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.5.17",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.7"
+  }
+}
