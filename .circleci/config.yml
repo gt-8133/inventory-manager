@@ -16,7 +16,7 @@ jobs:
           command: sudo npm install -g graphcool
       - run:
           name: Use latest npm (needed for npm ci)
-          command: npm i -g npm
+          command: sudo npm i -g npm
       - run: npm ci
       - save_cache:
           key: v1-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
