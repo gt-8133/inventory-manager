@@ -44,6 +44,7 @@
     ```sh
     npm install
     ```
+:+1: Good to go
 
 ### Running Instructions
 
