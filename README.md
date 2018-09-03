@@ -8,10 +8,10 @@
 
 - Install Nodejs
     ### Windows:
-        [install node-version-manager-windows from here](https://github.com/coreybutler/nvm-windows)
+     - [install node-version-manager-windows from here](https://github.com/coreybutler/nvm-windows)
 
     ### MacOS / Linux:
-        [install node-version-manager from here](https://github.com/creationix/nvm)
+     - [install node-version-manager from here](https://github.com/creationix/nvm)
 
         ```sh
         curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
