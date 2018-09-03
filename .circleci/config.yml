@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8
+
+    steps:
+      - checkout
+			- restore_cache:
+          key: v1-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: v1-deps-{{ .Branch }}
+          key: v1-deps
+      - setup_remote_docker
+      - run:
+				name: Install Graphcool CLI
+				command: sudo npm install -g graphcool
+      - run:
+				name: Use latest npm (needed for npm ci)
+				command: npm i -g npm
+			- run: npm ci
+			- save_cache:
+				key: v1-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+				paths:
+					- ~/.npm
+					- ~/.cache
+			- run: npm run server
