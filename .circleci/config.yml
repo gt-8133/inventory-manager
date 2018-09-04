@@ -23,4 +23,4 @@ jobs:
           paths:
             - ~/.npm
             - ~/.cache
-      - run: DEBUG=* sudo npm run server
+      - run: DEBUG=* npm run server
