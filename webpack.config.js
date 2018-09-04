@@ -31,6 +31,11 @@ module.exports = {
         }
       },
       {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'raw-loader'
+      },
+      {
         test: /\.css$/,
         loader: ['style-loader', 'css-loader']
       },
@@ -47,7 +52,9 @@ module.exports = {
   devtool: '#eval-source-map',
 
   plugins: [
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new webpack.EnvironmentPlugin({
+    })
   ],
 
   mode: process.env.NODE_ENV
@@ -62,10 +69,10 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    })
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     warnings: false
+    //   }
+    // })
   ])
 }
