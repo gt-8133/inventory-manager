@@ -20,4 +20,4 @@ jobs:
           paths:
             - ~/.npm
             - ~/.cache
-      - run: DEBUG=* cd server && ./node_modules/.bin/graphcool local up && ./node_modules/.bin/graphcool deploy
+      - run: DEBUG=* cd server && ../node_modules/.bin/graphcool local up && ../node_modules/.bin/graphcool deploy
