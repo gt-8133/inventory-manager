@@ -7,7 +7,8 @@ module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: 'build.js'
+    filename: 'build.js',
+    publicPath: '/dist/'
   },
   resolve: {
     modules: ['src', 'node_modules'],
@@ -57,7 +58,8 @@ module.exports = {
       MOCKED: process.env.MOCKED
     }),
     new HtmlWebpackPlugin({
-      template: './src/index.html'
+      template: './src/index.html',
+      inject: true
     })
   ],
 
