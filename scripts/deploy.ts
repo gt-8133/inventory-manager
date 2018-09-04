@@ -10,7 +10,7 @@ export const deploy = (
   dest_folder: string
 ) => {
   sh.exec('npm run build')
-  sh.cp('-r', 'dist', temp_folder)
+  sh.cp('-r', 'dist/*', temp_folder)
   sh.exec(`git checkout gh-pages`)
   sh.exec('git pull --rebase')
   sh.rm('-rf', dest_folder)
