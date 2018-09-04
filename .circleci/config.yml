@@ -5,6 +5,7 @@ jobs:
       - image: circleci/node:10
 
     steps:
+      - add_ssh_keys
       - checkout
       - restore_cache:
           key: v1-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
