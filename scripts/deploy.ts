@@ -1,6 +1,3 @@
-import * as fs from "fs-extra"
-import { exec } from "child_process"
-import * as Promise from "bluebird"
 import * as sh from 'shelljs'
 
 export const deploy = (
@@ -10,7 +7,7 @@ export const deploy = (
   dest_folder: string
 ) => {
   sh.exec('npm run build')
-  sh.cp('-r', 'dist/*', temp_folder)
+  sh.cp('-r', 'dist', temp_folder)
   sh.exec(`git checkout gh-pages`)
   sh.exec(`git branch --set-upstream-to=origin/gh-pages gh-pages`)
   sh.exec('git pull --rebase')
@@ -21,7 +18,6 @@ export const deploy = (
   sh.exec(`git commit -m "Deploy ${dest_folder}"`)
   sh.exec('git push origin gh-pages -f')
 
-  
   sh.exec('git checkout -')
 }
 

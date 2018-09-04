@@ -27,6 +27,7 @@
     "apollo-cache-inmemory": "^1.2.9",
     "apollo-link-schema": "^1.1.0",
     "babel-loader": "^8.0.0",
+    "bluebird": "^3.5.2",
     "cross-env": "^1.0.8",
     "css-loader": "^1.0.0",
     "fetch": "^1.1.0",
