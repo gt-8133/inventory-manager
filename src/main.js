@@ -22,8 +22,6 @@ if (process.env.MOCKED) {
       imageUrl: () =>
         "https://assets-cdn.github.com/images/icons/emoji/unicode/1f359.png?",
       quantityUnits: "count",
-      quantity: ()=>Math.round(Math.random()*10)
-      ,name: ()=>"Some random item"
     })
   }
   addMockFunctionsToSchema({
