@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "My Graphcool Service",
   "scripts": {
-    "start": "graphcool local up; graphcool deploy",
+    "start": "graphcool local up && graphcool deploy",
     "db:restore": "docker exec -i local_graphcool-db_1 mysql -u root --host 127.0.0.1 --port 3306 --password=graphcool cjllndxls00020107o32kr4h3 < ",
     "db:backup": "docker exec -i local_graphcool-db_1 mysqldump -u root --host 127.0.0.1 --port 3306 --password=graphcool cjllndxls00020107o32kr4h3 > ",
     "mysql": "docker exec -it local_graphcool-db_1 mysql -u root --host 127.0.0.1 --port 3306 --password=graphcool cjllndxls00020107o32kr4h3",
