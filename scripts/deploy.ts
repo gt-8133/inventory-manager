@@ -1,5 +1,5 @@
 import * as sh from 'shelljs'
-
+set('-e')
 export const deploy = (
   gh_name: string,
   gh_email: string,
