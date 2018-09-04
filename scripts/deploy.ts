@@ -1,5 +1,4 @@
 import * as sh from 'shelljs'
-sh.set('-e')
 export const deploy = (
   gh_name: string,
   gh_email: string,
@@ -16,6 +15,7 @@ export const deploy = (
   sh.cp('-r', `${temp_folder}/*`, dest_folder)
   sh.exec(`git add ${dest_folder}`)
   sh.exec(`git commit -m "Deploy ${dest_folder}"`)
+  sh.set('-e')
   sh.exec('git push origin gh-pages -f')
 
   sh.exec('git checkout -')
