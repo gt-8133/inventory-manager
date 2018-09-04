@@ -18,7 +18,7 @@ export const deploy = (
   sh.cp('-r', `${temp_folder}/*`, dest_folder)
   sh.exec(`git add ${dest_folder}`)
   sh.exec(`git commit -m "Deploy ${dest_folder}"`)
-  sh.exec('git push origin gh-pages')
+  sh.exec('git push origin gh-pages -f')
 
   
   sh.exec('git checkout -')
