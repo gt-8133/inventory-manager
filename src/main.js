@@ -14,7 +14,7 @@ import { makeExecutableSchema, addMockFunctionsToSchema } from "graphql-tools"
 
 let apolloClient
 
-if (process.env.NODE_ENV === "development") {
+if (process.env.MOCKED) {
   const schema = makeExecutableSchema({ typeDefs: schemafile })
   const mocks = {
     DateTime: () => new Date(),

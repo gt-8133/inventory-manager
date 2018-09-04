@@ -54,6 +54,7 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
     new webpack.EnvironmentPlugin({
+      MOCKED: process.env.MOCKED
     })
   ],
 
