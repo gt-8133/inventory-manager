@@ -8,7 +8,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'build.js',
-    publicPath: '/dist/'
   },
   resolve: {
     modules: ['src', 'node_modules'],
@@ -59,7 +58,6 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      inject: true
     })
   ],
 
