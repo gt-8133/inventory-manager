@@ -6,7 +6,7 @@
     "server:mysql": "cd server; npm run mysql",
     "start": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --port 3000",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "postinstall": "cd server; npm ci"
+    "postinstall": "cd server; npm install"
   },
   "dependencies": {
     "apollo-client": "^2.4.1",
