@@ -83,7 +83,6 @@
             <v-toolbar-side-icon
                     @click.stop="drawer = !drawer"
                     class="hidden-lg-and-up"
-                    :class="searching ? 'hidden-xs-only' : ''"
             />
             <v-toolbar-title>Inventory</v-toolbar-title>
             <v-spacer></v-spacer>
