@@ -12,6 +12,7 @@ export const deploy = (
   sh.exec('npm run build')
   sh.cp('-r', 'dist/*', temp_folder)
   sh.exec(`git checkout gh-pages`)
+  sh.exec(`git branch --set-upstream-to=origin/gh-pages gh-pages`)
   sh.exec('git pull --rebase')
   sh.rm('-rf', dest_folder)
   sh.mkdir('-p', dest_folder)
