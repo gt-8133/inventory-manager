@@ -20,8 +20,10 @@ if (process.env.MOCKED) {
     DateTime: () => new Date(),
     Item: () => ({
       imageUrl: () =>
-        "https://ci6.googleusercontent.com/proxy/do5FnTcqK32WISiaYRn9ScDNjuPxamEV2Q8Zwh3g1OqW2zkVHR0Pf4m2hWjGIOxTFaBdfiR1ur84aJrlCxDuX-vJ6FLIZrsmLvuedqu7uWlC_N0WdFkNJxitjQ=s0-d-e1-ft#https://assets-cdn.github.com/images/icons/emoji/unicode/1f389.png?v7",
-      quantityUnits: "count"
+        "https://assets-cdn.github.com/images/icons/emoji/unicode/1f359.png?",
+      quantityUnits: "count",
+      quantity: ()=>Math.round(Math.random()*10)
+      ,name: ()=>"Some random item"
     })
   }
   addMockFunctionsToSchema({
@@ -42,22 +44,6 @@ if (process.env.MOCKED) {
     cache: new InMemoryCache()
   })
 }
-
-// const query = `
-// mutation createItem {
-//   createItem(
-//     description:"adf"
-//     name: "ppp"
-//     quantity: 3
-//     quantityUnits: "count"
-//     reusable:true
-//   ){
-//     name
-//   }
-// }
-// `
-
-// graphql(schema, query).then(result=>console.log('got result', result))
 
 Vue.use(VueApollo)
 Vue.use(Vuetify)

@@ -1,12 +1,12 @@
 const path = require('path')
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
     filename: 'build.js'
   },
   resolve: {
@@ -55,6 +55,9 @@ module.exports = {
     new VueLoaderPlugin(),
     new webpack.EnvironmentPlugin({
       MOCKED: process.env.MOCKED
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/index.html'
     })
   ],
 
