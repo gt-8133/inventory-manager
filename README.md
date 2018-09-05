@@ -54,6 +54,8 @@
     ```sh
     npm run server
     ```
+    - If you want to restore the database from a backup, refer to the readme.md in the `server` folder
+
 
 - Start the frontend server:
     ```sh
@@ -67,7 +69,6 @@
     npm run start:mocked
     ```
     
-- If you want to restore the database from a backup, refer to the readme.md in the `server` folder
 
 
 ## Extra Reads
