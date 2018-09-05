@@ -22,6 +22,7 @@ if (process.env.MOCKED) {
       imageUrl: () =>
         "https://assets-cdn.github.com/images/icons/emoji/unicode/1f359.png?",
       quantityUnits: "count",
+      reusable: false
     })
   }
   addMockFunctionsToSchema({
