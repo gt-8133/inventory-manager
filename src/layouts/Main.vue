@@ -154,7 +154,7 @@
         name: 'Main',
         data () {
             return {
-                drawer: false,
+                drawer: true,
                 drawerMenuItems: [
                     {
                         icon: 'assignment',
