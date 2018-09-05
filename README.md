@@ -61,6 +61,12 @@
     ```
     **Now open up your browser to localhost:3000**
     
+#### For a mocked in-browser database:
+ - You only need to start the frontend server, and use an environment variable during the webpack build:
+    ```sh
+    npm run start:mocked
+    ```
+    
 - If you want to restore the database from a backup, refer to the readme.md in the `server` folder
 
 
