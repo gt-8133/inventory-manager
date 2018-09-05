@@ -1,5 +1,6 @@
 # Inventory-Manager
 [![CircleCI branch](https://img.shields.io/circleci/project/github/gt-8133/inventory-manager/master.svg)](https://circleci.com/gh/gt-8133/inventory-manager/tree/master)
+[![](https://img.shields.io/badge/demo-up-brightgreen.svg)](https://gt-8133.github.io/inventory-manager/master)
 
 ### An inventory management solution with user controls and admin features.
 
