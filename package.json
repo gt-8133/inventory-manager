@@ -5,6 +5,7 @@
     "server": "cd server; npm start",
     "server:mysql": "cd server; npm run mysql",
     "start": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --port 3000",
+    "start:mocked": "cross-env NODE_ENV=development MOCKED=1 webpack-dev-server --inline --hot --port 3000",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "postinstall": "cd server; npm install",
     "deploy": "cross-env MOCKED=1 ts-node scripts/deploy.ts"
