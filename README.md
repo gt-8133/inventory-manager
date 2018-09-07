@@ -21,7 +21,8 @@
      - [install node-version-manager-windows from here](https://github.com/coreybutler/nvm-windows)
      -do the setup msi
      - open cmd and type: nvm install latest
-     
+     - then write: nvm on
+        after this npm will be availible until computer is restarted
 
     ### MacOS / Linux:
      - [install node-version-manager from here](https://github.com/creationix/nvm)
