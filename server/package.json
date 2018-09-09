@@ -1,22 +1,22 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "My Graphcool Service",
-  "scripts": {
-    "start": "graphcool local up && graphcool deploy",
-    "db:restore": "docker exec -i local_graphcool-db_1 mysql -u root --host 127.0.0.1 --port 3306 --password=graphcool cjllndxls00020107o32kr4h3 < ",
-    "db:backup": "docker exec -i local_graphcool-db_1 mysqldump -u root --host 127.0.0.1 --port 3306 --password=graphcool cjllndxls00020107o32kr4h3 > ",
-    "mysql": "docker exec -it local_graphcool-db_1 mysql -u root --host 127.0.0.1 --port 3306 --password=graphcool cjllndxls00020107o32kr4h3",
-    "attach": "docker exec -it local_graphcool-db_1 bash",
-    "tail": "docker logs -f local_graphcool_1 | awk 'match($0, /\\{.*\\}/) {print substr($0, 0, length($0)-RLENGTH);print substr($0, RSTART, RLENGTH) | \"jq\"}'"
-  },
-  "dependencies": {
-    "@types/bcryptjs": "^2.4.1",
-    "@types/validator": "^6.3.0",
-    "bcryptjs": "^2.4.3",
-    "graphcool": "^0.11.6",
-    "graphcool-lib": "^0.1.0",
-    "graphql-request": "^1.4.0",
-    "validator": "^9.0.0"
+	"name": "server",
+	"version": "1.0.0",
+	"description": "My Graphcool Service",
+	"scripts": {
+	  "start": "graphcool local up && graphcool deploy",
+	  "db:restore": "docker exec -i server_mysql_1 mysql -u root --host 127.0.0.1 --port 3306 --password=prisma default@default < ",
+	  "db:backup": "docker exec -i local_graphcool-db_1 mysqldump -u root --host 127.0.0.1 --port 3306 --password=graphcool default@default > ",
+	  "mysql": "docker exec -it server_mysql_1 mysql -u root --host 127.0.0.1 --port 3306 --password=prisma default@default",
+	  "attach": "docker exec -it local_graphcool-db_1 bash",
+	  "tail": "docker logs -f local_graphcool_1 | awk 'match($0, /\\{.*\\}/) {print substr($0, 0, length($0)-RLENGTH);print substr($0, RSTART, RLENGTH) | \"jq\"}'"
+	},
+	"dependencies": {
+	  "@types/bcryptjs": "^2.4.1",
+	  "@types/validator": "^6.3.0",
+	  "bcryptjs": "^2.4.3",
+	  "graphcool": "^0.11.6",
+	  "graphcool-lib": "^0.1.0",
+	  "graphql-request": "^1.4.0",
+	  "validator": "^9.0.0"
+	}
   }
-}

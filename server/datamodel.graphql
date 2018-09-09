@@ -1,0 +1,24 @@
+type Item {
+  id: ID! @unique
+
+  createdAt: DateTime! # read-only (managed by Graphcool)
+  updatedAt: DateTime! # read-only (managed by Graphcool)
+
+  name: String!
+  description: String!
+  imageUrl: String
+  quantity: Int! 
+  quantityUnits: String! 
+  reusable: Boolean!
+}
+
+# added by email-password template: (please uncomment)
+type User {
+  # Required system field:
+  id: ID! @unique # read-only (managed by Graphcool)
+
+  email: String! @isUnique
+  password: String!
+}
+
+

@@ -1,10 +1,12 @@
 <template>
   <div>
-    <v-toolbar
-      flat
-      color="white"
-    >
-      <v-toolbar-title />
+    <v-toolbar flat color="white">
+      <v-toolbar-title>some new word</v-toolbar-title>
+      <v-divider
+        class="mx-2"
+        inset
+        vertical
+      ></v-divider>
       <v-text-field
         v-model="search"
         append-icon="search"
@@ -170,7 +172,7 @@
     </v-toolbar>
     <v-data-table
       :headers="headers"
-      :items="allItems"
+      :items="items"
       :search="search"
       :loading="$apollo.loading"
       hide-actions
@@ -260,12 +262,12 @@ const createItem = gql`
 
 const updateItem = gql`
   mutation updateItem(
-    $id:ID!
-    $name: String!
-    $description: String!
-    $quantity: Int!
-    $quantityUnits: String!
-    $reusable: Boolean!
+    $id:ID
+    $name: String
+    $description: String
+    $quantity: Int
+    $quantityUnits: String
+    $reusable: Boolean
     $imageUrl: String
   ) {
     updateItem(
@@ -298,9 +300,9 @@ mutation deleteItem($id:ID!){
 
 
 // GraphQL query
-const allItems = gql`
-  query allItems {
-    allItems(orderBy: id_ASC) {
+const getItems = gql`
+  query items {
+    items(orderBy: id_ASC) {
       id
       description
       name
@@ -316,7 +318,7 @@ const allItems = gql`
 
 export default {
   data: () => ({
-    allItems: [],
+    items: [],
     loading: 0,
     dialog: false,
     search: '',
@@ -359,10 +361,10 @@ export default {
 
   // Apollo GraphQL
   apollo: {
-    allItems: {
-      query: allItems,
-      loadingKey: 'loading',
-    },
+    items: {
+      query: getItems,
+      loadingKey: "loading"
+    }
   },
 
   methods: {
@@ -389,17 +391,17 @@ export default {
           variables: { id: item.id },
           loadingKey: 'loading',
           updateQueries: {
-            allItems: prev => ({
-              allItems: _.flow(
-                _.filter((i) => {
-                  if (i.id === item.id) {
-                    return false
-                  }
-                  return true
-                }),
-              )(prev.allItems),
-            }),
-          },
+            getItems: (prev, {mutationResult}) => ({
+              items: _.flow(
+                _.filter(i=>{
+                if (i.id === item.id) {
+                  return false
+                }
+                return true
+                })
+              )(prev.items)
+            })
+          }
         })
       }
     },
@@ -417,23 +419,39 @@ export default {
           variables: this.form.item,
           loadingKey: 'loading',
           updateQueries: {
-            allItems: prev => ({
-              // append at head of list because we sort the posts reverse chronological
-
-              allItems: _.flow(
-                _.map((item) => {
-                  if (item.id === this.form.item.id) {
-                    return this.form.item
-                  }
-                  return item
-                }),
-              )(prev.allItems),
-            }),
+            getItems: (prev, {
+              mutationResult
+            }) => {
+              return {
+                // append at head of list because we sort the posts reverse chronological
+                
+                items: _.flow(
+                    _.map(item=>{
+                    if (item.id === this.form.item.id) {
+                      return this.form.item
+                    }
+                    return item
+                    })
+                  )(prev.items)
+              }
+            },
           },
         }).then((data) => {
           console.log(data)
           // Result
         })
+
+
+          // this.items = _.map((item)=>{
+          //   // console.log(item)
+          //   if (item.id === editId) {
+          //     const someItem = _.clone(item)
+          //     someItem.name = 'asdf'
+          //     return someItem
+          //   }
+          //   return item
+          // })(this.items)
+        // )
       } else {
         // create a new item
         this.form.item.quantity = window.parseInt(this.form.item.quantity)
@@ -443,12 +461,14 @@ export default {
           variables: this.form.item,
           loadingKey: 'loading',
           updateQueries: {
-            allItems: (prev, {
-              mutationResult,
-            }) => ({
-              // append at head of list because we sort the posts reverse chronological
-              allItems: [mutationResult.data.createItem, ...prev.allItems],
-            }),
+            getItems: (prev, {
+              mutationResult
+            }) => {
+              return {
+                // append at head of list because we sort the posts reverse chronological
+                items: [mutationResult.data.createItem, ...prev.items],
+              }
+            },
           },
         }).then((data) => {
           // Result
