@@ -87,5 +87,25 @@
 
 - see `server/README.md` for instructions for controlling the database (backing-up, restoring, controlling via terminal)
 
-- [Graphcool Docs](https://docs-next.graph.cool/docs/)
+- [Prisma Docs](https://www.prisma.io/docs/)
 
+
+
+## Contributing
+
+- make sure the code you're writing has a corrosponding issue (if it addresses multiple issues, just pick one)
+- make a new branch with the issue number in the name  
+(ex. `issue-42`):
+```sh
+    git checkout -b issue-42
+```
+- **commit** early and often
+- **push** your code:
+```sh
+    git push origin HEAD
+```
+- open a WIP PR, named something like this:  
+`WIP: Admin Features`
+
+- See a build of your branch at  
+`https://gt-8133.github.io/inventory-manager/<branch-name>`
