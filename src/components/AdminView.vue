@@ -121,7 +121,7 @@
                       :size="30"
                       color="grey lighten-4"
                     >
-                      <img v-if="props.item.imageUrl" :src="props.item.imageUrl || '/default-item.png'" alt="image">
+                      <img v-if="props.item.imageUrl" :src="props.item.imageUrl" alt="image">
                       <v-icon v-else>fitness_center</v-icon>
                     </v-avatar>
           &nbsp;{{ props.item.name }}
@@ -154,6 +154,7 @@
 import gql from "graphql-tag";
 import * as _ from "lodash/fp"
 import Vue from "vue"
+import { setInterval } from 'timers';
 
 const createItem = gql `
     mutation createItem(
@@ -237,7 +238,10 @@ const allItems = gql`
       reusable
     }
   }
-`;
+`
+
+
+
 export default {
   data: () => ({
     allItems: [],
@@ -264,7 +268,7 @@ export default {
     description: "",
     quantity: 0,
     quantityUnits: "count",
-    imageUrl: "",
+    imageUrl: 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f3'+Math.round(Math.random()*40+40)+'.png?',
     reusable: true
   },
   form: {
@@ -279,11 +283,18 @@ export default {
     }
   },
 
+  mounted() {
+    setInterval(()=>console.log(this.allItems[0].name), 1000)
+  },
+
   // Apollo GraphQL
   apollo: {
     allItems: {
       query: allItems,
-      loadingKey: "loading"
+      loadingKey: "loading",
+      // skip() {
+      //   return Math.round(Math.random())
+      // }
     }
   },
 

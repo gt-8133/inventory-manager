@@ -26,6 +26,7 @@
     "@types/shelljs": "^0.8.0",
     "apollo-boost": "^0.1.15",
     "apollo-cache-inmemory": "^1.2.9",
+    "apollo-cache-persist": "^0.1.1",
     "apollo-link-schema": "^1.1.0",
     "babel-loader": "^8.0.0",
     "bluebird": "^3.5.2",
