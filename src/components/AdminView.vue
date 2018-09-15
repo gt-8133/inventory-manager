@@ -1,12 +1,8 @@
 <template>
   <div>
     <v-toolbar flat color="white">
-      <v-toolbar-title>Admin View</v-toolbar-title>
-      <v-divider
-        class="mx-2"
-        inset
-        vertical
-      ></v-divider>
+      <v-toolbar-title></v-toolbar-title>
+      
       <v-text-field
         v-model="search"
         append-icon="search"
@@ -16,10 +12,10 @@
       ></v-text-field>
       <v-spacer></v-spacer>
       <v-btn @click="newItem()" color="primary" class="mb-2 indigo">
-        <v-icon dark left>add_circle</v-icon>
+        <v-icon dark left tabindex="1">add_box</v-icon>
         New Item
         </v-btn>
-      <v-dialog v-model="dialog" width="500" fullscreen>
+      <v-dialog v-model="dialog" width="500" :fullscreen="this.$vuetify.breakpoint.xsOnly">
         <v-card @keydown.native.enter="save">
           <v-card-title>
             <span class="headline">{{ formTitle }}</span>
@@ -62,7 +58,7 @@
                   <v-text-field validate-on-blur solo placeholder="www.example.com/some-image.png" autofocus @blur="form.editImage=false" v-show="form.editImage" v-model="form.item.imageUrl"></v-text-field>
                   </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.item.name" label="Item name"></v-text-field>
+                  <v-text-field v-model="form.item.name" label="Item name" ref="adsf"></v-text-field>
                 </v-flex>
                 <v-flex xs12>
                   <v-textarea
@@ -83,6 +79,7 @@
                      <v-switch
                       :label="`Reusable`"
                       v-model="form.item.reusable"
+                      light
                     ></v-switch>
                   </v-flex>
                   </v-layout>
@@ -154,7 +151,7 @@
 import gql from "graphql-tag";
 import * as _ from "lodash/fp"
 import Vue from "vue"
-import { setInterval } from 'timers';
+import { setTimeout } from 'timers';
 
 const createItem = gql `
     mutation createItem(
@@ -284,7 +281,6 @@ export default {
   },
 
   mounted() {
-    setInterval(()=>console.log(this.allItems[0].name), 1000)
   },
 
   // Apollo GraphQL
@@ -308,6 +304,9 @@ export default {
     },
 
     editItem(item) {
+      console.log(this.$refs.adsf)
+      // this.$refs.adsf.focus()
+      setTimeout(()=>this.$refs.adsf.focus(), 50)
       this.form.editImage = false
       this.form.item = Object.assign({}, item);
       this.dialog = true;
@@ -336,9 +335,9 @@ export default {
 
     close() {
       this.dialog = false;
-      setTimeout(() => {
-        this.form.item = Object.assign({}, this.defaultItem);
-      }, 300);
+      // setTimeout(() => {
+      //   this.form.item = Object.assign({}, this.defaultItem);
+      // }, 300);
     },
 
     save() {

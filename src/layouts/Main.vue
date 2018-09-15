@@ -8,7 +8,13 @@
                 fixed
                 app
         >
-            <v-toolbar flat class="transparent" dense>
+            <v-toolbar
+                flat
+                class="transparent" 
+                dense
+                prominent
+
+                >
                 <v-list class="pa-0" :class="{'list-border-bottom' : miniVariant}">
                     <v-list-tile>
                         <v-list-tile-action v-if="!miniVariant">
@@ -75,10 +81,10 @@
 
         <v-toolbar
                 app
-                flat
                 dense
                 color="primary"
                 dark
+                prominent
         >
             <v-toolbar-side-icon
                     @click.stop="drawer = !drawer"
@@ -145,6 +151,9 @@
         <v-content>
             <router-view />
         </v-content>
+    <v-btn fab dark color fixed bottom right @click="clearCache()">
+      <v-icon dark class="spin">cached</v-icon>
+    </v-btn>
 
     </v-app>
 </template>
@@ -166,6 +175,11 @@
                 rightDrawer: false,
             }
         },
+        methods: {
+            clearCache: ()=>{
+                window.localStorage.clear()
+            }
+        }
     }
 </script>
 
