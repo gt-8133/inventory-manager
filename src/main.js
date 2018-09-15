@@ -9,7 +9,7 @@ import VueApollo from 'vue-apollo'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { HttpLink } from 'apollo-link-http'
 import { createMockClient } from './mock'
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 
 const start = () => {
   Promise.try(() => {
