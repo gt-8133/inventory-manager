@@ -38,7 +38,6 @@
 
 <script>
 import gql from 'graphql-tag'
-import { debug } from 'util'
 
 const signupUser = gql`
 mutation signupUser($email: String!, $password: String!) {
@@ -88,10 +87,10 @@ export default {
         },
       })
         .then((data) => {
-          debug(data)
+          console.log(data)
         })
         .catch((e) => {
-          debug(e)
+          console.log(e)
         })
     },
     login() {
@@ -104,12 +103,12 @@ export default {
         },
       })
         .then((data) => {
-          debug(data)
+          console.log(data)
           window.localStorage.setItem('auth', data.data.authenticateUser.token)
           this.onLogin()
         })
         .catch((e) => {
-          debug(e)
+          console.log(e)
         })
     },
   },

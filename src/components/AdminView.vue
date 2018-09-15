@@ -408,7 +408,6 @@ export default {
     },
 
     save() {
-      debug(this.form.item)
       if (this.form.item.id) {
         this.form.item.quantity = window.parseInt(this.form.item.quantity)
 
@@ -432,12 +431,9 @@ export default {
           },
         }).then((data) => {
           // Result
-          debug(data)
         })
       } else {
         // create a new item
-        debug(this.form.item)
-
         this.form.item.quantity = window.parseInt(this.form.item.quantity)
 
         this.$apollo.mutate({
@@ -454,7 +450,6 @@ export default {
           },
         }).then((data) => {
           // Result
-          debug(data)
         })
       }
       this.close()
