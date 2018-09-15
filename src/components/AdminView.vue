@@ -61,6 +61,7 @@
                       <v-btn
                         fab
                         small
+                        @click="selectImageUrl()"
                       ><v-icon
                         dark
                         style="font-size:21px"
@@ -84,6 +85,7 @@
                   </v-badge>
                   <v-text-field
                     v-show="form.editImage"
+                    ref="imageUrl"
                     v-model="form.item.imageUrl"
                     validate-on-blur
                     solo
@@ -226,7 +228,6 @@
 import gql from 'graphql-tag'
 import * as _ from 'lodash/fp'
 import { setTimeout } from 'timers'
-import { debug } from 'util'
 
 const createItem = gql`
     mutation createItem(
@@ -430,6 +431,7 @@ export default {
             }),
           },
         }).then((data) => {
+          console.log(data)
           // Result
         })
       } else {
@@ -450,9 +452,14 @@ export default {
           },
         }).then((data) => {
           // Result
+          console.log(data)
         })
       }
       this.close()
+    },
+    selectImageUrl() {
+      console.log(this.$refs.imageUrl)
+      setTimeout(() => this.$refs.imageUrl.focus(), 100)
     },
   },
 }

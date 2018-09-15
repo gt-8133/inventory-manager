@@ -17,7 +17,7 @@ jobs:
           paths:
             - ~/.npm
             - ~/.cache
-      - run: npm run build
+      - run: npm run build:mocked
       - run: node ./scripts/demo.js
       - store_artifacts:
           path: dist
