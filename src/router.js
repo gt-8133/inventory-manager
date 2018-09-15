@@ -5,19 +5,19 @@ import AdminView from './components/AdminView.vue'
 Vue.use(VueRouter)
 
 const routes = [
-    {
-        path: '/',
-        name: 'home',
-        component: AdminView
-    },
-    {
-        path: '/dashboard',
-        name: 'dashboard',
-        component: AdminView,
-    }
+  {
+    path: '/',
+    name: 'home',
+    component: AdminView,
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: AdminView,
+  },
 ]
 
 export default new VueRouter({
-    mode: 'hash',
-    routes
+  mode: 'hash',
+  routes,
 })
