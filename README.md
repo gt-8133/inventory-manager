@@ -4,8 +4,8 @@
     <a href="https://circleci.com/gh/gt-8133/inventory-manager/tree/master">
     <img src="https://img.shields.io/circleci/project/github/gt-8133/inventory-manager/master.svg">
     </a>
-    <a href="https://gt-8133.github.io/inventory-manager/master">
-    <img src="https://img.shields.io/badge/demo-master-blue.svg">
+    <a href="https://circleci-latest-artifact.herokuapp.com/gt-8133/inventory-manager/develop/dist/index.html">
+    <img src="https://img.shields.io/badge/live%20demo-link-blue.svg">
     </a>
 <p>An inventory management solution with user controls and admin features.</p>
     
