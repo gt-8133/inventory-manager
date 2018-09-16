@@ -3,6 +3,7 @@ node_modules/
 dist/
 npm-debug.log
 cypress/videos
+cypress/screenshots
 # Logs
 logs
 *.log
