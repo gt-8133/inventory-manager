@@ -61,6 +61,7 @@
                       <v-btn
                         fab
                         small
+                        data-test="edit-image"
                         @click="selectImageUrl()"
                       ><v-icon
                         dark
@@ -207,6 +208,7 @@
         <td class="text-xs-right">{{ props.item.quantityUnits }}: {{ props.item.quantity }}</td>
         <td class="justify-center layout px-0">
           <v-icon
+            data-test="edit"
             med
             class="mr-2"
             @click="editItem(props.item)"
@@ -214,6 +216,7 @@
             edit
           </v-icon>
           <v-icon
+            data-test="delete"
             med
             @click="deleteItem(props.item)"
           >
