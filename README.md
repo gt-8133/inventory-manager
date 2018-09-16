@@ -53,7 +53,10 @@
     ```sh
     npm i -g prisma
     ```
-
+- Install get-graphql-schema
+    ```sh
+    npm install -g get-graphql-schema
+    ```
 - Clone this repo
     ```sh
     git clone https://github.com/gt-8133/inventory-manager.git \
