@@ -1,12 +1,10 @@
 <template>
   <div>
-    <v-toolbar flat color="white">
-      <v-toolbar-title>some new word</v-toolbar-title>
-      <v-divider
-        class="mx-2"
-        inset
-        vertical
-      ></v-divider>
+    <v-toolbar
+      flat
+      color="white"
+    >
+      <v-toolbar-title />
       <v-text-field
         v-model="search"
         append-icon="search"
@@ -209,14 +207,14 @@
         <td class="text-xs-right">{{ props.item.quantityUnits }}: {{ props.item.quantity }}</td>
         <td class="justify-center layout px-0">
           <v-icon
-            small
+            med
             class="mr-2"
             @click="editItem(props.item)"
           >
             edit
           </v-icon>
           <v-icon
-            small
+            med
             @click="deleteItem(props.item)"
           >
             delete
@@ -229,7 +227,6 @@
 <script>
 import gql from 'graphql-tag'
 import * as _ from 'lodash/fp'
-import { setTimeout } from 'timers'
 
 const createItem = gql`
     mutation createItem(
@@ -240,14 +237,14 @@ const createItem = gql`
       $reusable: Boolean!
       $imageUrl: String
       ) {
-      createItem(
+      createItem( data: {
         name: $name
         description: $description,
         quantity: $quantity
         quantityUnits: $quantityUnits
         reusable: $reusable
         imageUrl: $imageUrl
-        ) {
+        }) {
         id
         description
         name
@@ -262,22 +259,26 @@ const createItem = gql`
 
 const updateItem = gql`
   mutation updateItem(
-    $id:ID
-    $name: String
-    $description: String
-    $quantity: Int
-    $quantityUnits: String
-    $reusable: Boolean
+    $id:ID!
+    $name: String!
+    $description: String!
+    $quantity: Int!
+    $quantityUnits: String!
+    $reusable: Boolean!
     $imageUrl: String
   ) {
     updateItem(
+      where: {
         id: $id
+      }
+      data: {
         name: $name
         description: $description,
         quantity: $quantity
         quantityUnits: $quantityUnits
         reusable: $reusable
         imageUrl: $imageUrl
+      }
         ) {
         id
         description
@@ -292,7 +293,7 @@ const updateItem = gql`
 `
 const deleteItem = gql`
 mutation deleteItem($id:ID!){
-  deleteItem(id:$id){
+  deleteItem(where:{id:$id}){
     id
   }
 }
@@ -300,7 +301,7 @@ mutation deleteItem($id:ID!){
 
 
 // GraphQL query
-const getItems = gql`
+const items = gql`
   query items {
     items(orderBy: id_ASC) {
       id
@@ -362,9 +363,9 @@ export default {
   // Apollo GraphQL
   apollo: {
     items: {
-      query: getItems,
-      loadingKey: "loading"
-    }
+      query: items,
+      loadingKey: 'loading',
+    },
   },
 
   methods: {
@@ -374,11 +375,11 @@ export default {
 
     newItem() {
       this.editItem(_.clone(this.defaultItem))
+      setTimeout(() => this.$refs.adsf.focus(), 50)
     },
 
     editItem(item) {
       // if focus is called to early, it won't work
-      setTimeout(() => this.$refs.adsf.focus(), 50)
       this.form.editImage = false
       this.form.item = Object.assign({}, item)
       this.dialog = true
@@ -391,17 +392,17 @@ export default {
           variables: { id: item.id },
           loadingKey: 'loading',
           updateQueries: {
-            getItems: (prev, {mutationResult}) => ({
+            items: prev => ({
               items: _.flow(
-                _.filter(i=>{
-                if (i.id === item.id) {
-                  return false
-                }
-                return true
-                })
-              )(prev.items)
-            })
-          }
+                _.filter((i) => {
+                  if (i.id === item.id) {
+                    return false
+                  }
+                  return true
+                }),
+              )(prev.items),
+            }),
+          },
         })
       }
     },
@@ -419,39 +420,23 @@ export default {
           variables: this.form.item,
           loadingKey: 'loading',
           updateQueries: {
-            getItems: (prev, {
-              mutationResult
-            }) => {
-              return {
-                // append at head of list because we sort the posts reverse chronological
-                
-                items: _.flow(
-                    _.map(item=>{
-                    if (item.id === this.form.item.id) {
-                      return this.form.item
-                    }
-                    return item
-                    })
-                  )(prev.items)
-              }
-            },
+            items: prev => ({
+              // append at head of list because we sort the posts reverse chronological
+
+              items: _.flow(
+                _.map((item) => {
+                  if (item.id === this.form.item.id) {
+                    return this.form.item
+                  }
+                  return item
+                }),
+              )(prev.items),
+            }),
           },
         }).then((data) => {
           console.log(data)
           // Result
         })
-
-
-          // this.items = _.map((item)=>{
-          //   // console.log(item)
-          //   if (item.id === editId) {
-          //     const someItem = _.clone(item)
-          //     someItem.name = 'asdf'
-          //     return someItem
-          //   }
-          //   return item
-          // })(this.items)
-        // )
       } else {
         // create a new item
         this.form.item.quantity = window.parseInt(this.form.item.quantity)
@@ -461,14 +446,12 @@ export default {
           variables: this.form.item,
           loadingKey: 'loading',
           updateQueries: {
-            getItems: (prev, {
-              mutationResult
-            }) => {
-              return {
-                // append at head of list because we sort the posts reverse chronological
-                items: [mutationResult.data.createItem, ...prev.items],
-              }
-            },
+            items: (prev, {
+              mutationResult,
+            }) => ({
+              // append at head of list because we sort the posts reverse chronological
+              items: [mutationResult.data.createItem, ...prev.items],
+            }),
           },
         }).then((data) => {
           // Result
@@ -479,7 +462,7 @@ export default {
     },
     selectImageUrl() {
       console.log(this.$refs.imageUrl)
-      setTimeout(() => this.$refs.imageUrl.focus(), 100)
+      setTimeout(() => this.$refs.imageUrl.focus(), 20)
     },
   },
 }

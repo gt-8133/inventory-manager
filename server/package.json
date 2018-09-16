@@ -1,22 +1,27 @@
 {
 	"name": "server",
 	"version": "1.0.0",
-	"description": "My Graphcool Service",
+	"description": "My prisma Service",
 	"scripts": {
-	  "start": "graphcool local up && graphcool deploy",
-	  "db:restore": "docker exec -i server_mysql_1 mysql -u root --host 127.0.0.1 --port 3306 --password=prisma default@default < ",
-	  "db:backup": "docker exec -i local_graphcool-db_1 mysqldump -u root --host 127.0.0.1 --port 3306 --password=graphcool default@default > ",
-	  "mysql": "docker exec -it server_mysql_1 mysql -u root --host 127.0.0.1 --port 3306 --password=prisma default@default",
-	  "attach": "docker exec -it local_graphcool-db_1 bash",
-	  "tail": "docker logs -f local_graphcool_1 | awk 'match($0, /\\{.*\\}/) {print substr($0, 0, length($0)-RLENGTH);print substr($0, RSTART, RLENGTH) | \"jq\"}'"
+		"start": "start-server-and-test docker :4466 prisma",
+		"docker": "docker-compose up -d",
+		"prisma": "prisma deploy",
+		"playground": "prisma playground --port 4242",
+		"db:restore": "docker exec -i server_mysql_1 mysql -u root --host 127.0.0.1 --port 3306 --password=prisma default@default < ",
+		"db:backup": "docker exec -i server_mysql_1 mysqldump -u root --host 127.0.0.1 --port 3306 --password=prisma default@default > ",
+		"mysql": "docker exec -it server_mysql_1 mysql -u root --host 127.0.0.1 --port 3306 --password=prisma default@default",
+		"attach": "docker exec -it server_mysql_1 bash",
+		"tail": "docker logs -f server_prisma_1"
 	},
 	"dependencies": {
-	  "@types/bcryptjs": "^2.4.1",
-	  "@types/validator": "^6.3.0",
-	  "bcryptjs": "^2.4.3",
-	  "graphcool": "^0.11.6",
-	  "graphcool-lib": "^0.1.0",
-	  "graphql-request": "^1.4.0",
-	  "validator": "^9.0.0"
+		"bcryptjs": "^2.4.3",
+		"graphql-request": "^1.4.0",
+		"validator": "^9.0.0"
+	},
+	"devDependencies": {
+		"@types/bcryptjs": "^2.4.1",
+		"@types/validator": "^6.3.0",
+		"prisma": "^1.16.2",
+		"start-server-and-test": "^1.7.1"
 	}
-  }
+}

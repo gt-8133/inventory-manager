@@ -19,7 +19,7 @@ const start = () => {
     // Info: https://github.com/graphcool-examples/vue-apollo-instagram-example#2-create-graphql-api-with-graphcool
     return new ApolloClient({
       link: new HttpLink({
-        uri: 'http://localhost:60000/simple/v1/cjllndxls00020107o32kr4h3',
+        uri: 'http://localhost:4466',
       }),
       cache: new InMemoryCache(),
     })
@@ -49,23 +49,6 @@ const start = () => {
       apolloProvider,
       render: h => h(App),
     })
-  }
-  addMockFunctionsToSchema({
-    schema,
-    preserveResolvers: true,
-    mocks
-  })
-  apolloClient = new ApolloClient({
-    link: new SchemaLink({ schema }),
-    cache: new InMemoryCache()
-  })
-} else {
-  // Paste your endpoint for the Simple API here.
-  // Info: https://github.com/graphcool-examples/vue-apollo-instagram-example#2-create-graphql-api-with-graphcool
-  
-  apolloClient = new ApolloClient({
-    link: createHttpLink({uri: "http://localhost:4466"}),
-    cache: new InMemoryCache()
   })
 }
 
