@@ -49,6 +49,10 @@
     ```sh
     npm i -g graphcool
     ```
+- Install Prisma globally from npm:
+    ```sh
+    npm i -g prisma
+    ```
 
 - Clone this repo
     ```sh
