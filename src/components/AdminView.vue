@@ -88,6 +88,7 @@
                     v-show="form.editImage"
                     ref="imageUrl"
                     v-model="form.item.imageUrl"
+                    data-test="imageUrl"
                     validate-on-blur
                     solo
                     placeholder="www.example.com/some-image.png"

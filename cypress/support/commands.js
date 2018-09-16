@@ -47,3 +47,9 @@ Cypress.Commands.add('tab', { prevSubject: 'optional' }, (subject, options) => {
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+module.exports = {
+  waitForActive(selector) {
+    return cy.window().should(win => win.document.activeElement && win.document.activeElement.matches(selector))
+  },
+}

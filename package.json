@@ -13,7 +13,8 @@
     "cypress:run": "cypress run",
     "cypress:test": "start-server-and-test start:mocked :3000 cypress:run",
     "deploy": "cross-env MOCKED=1 ts-node scripts/deploy.ts",
-    "precommit": "lint-staged"
+    "precommit": "npm run stop-only && lint-staged",
+    "stop-only": "stop-only --folder cypress/integration"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,css,md}": [
@@ -71,6 +72,7 @@
     "raw-loader": "^0.5.1",
     "shelljs": "^0.8.2",
     "start-server-and-test": "^1.7.1",
+    "stop-only": "^2.2.4",
     "style-loader": "^0.23.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",

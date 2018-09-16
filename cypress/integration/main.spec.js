@@ -1,49 +1,16 @@
-/// <reference types="cypress"/>
-
-const _ = require('lodash')
-const faker = require('faker')
+const { setup } = require('../support/setup')
+const { waitForActive } = require('../support/commands')
 
 describe('Main', () => {
-  beforeEach(() => {
-    cy.viewport('iphone-6+')
-    cy.visit('http://localhost:3000', {
-      onBeforeLoad: (win) => {
-        win.localStorage.clear()
-        win.addEventListener('mocks', () => {
-          faker.seed(2)
-          win.mocks = {
-            DateTime: () => new Date(0),
-            Item: (...args) => {
-              console.log(args)
-              return _.defaults(args[1].data, {
-                name: () => faker.commerce
-                  .productName()
-                  .split(' ')
-                  .slice(1)
-                  .join(' '),
-                description: () => faker.lorem.paragraph(),
-                imageUrl: () => faker.image.avatar(),
-                quantityUnits: 'count',
-                reusable: false,
-                quantity: () => faker.random.number(20),
-              })
-            },
+  beforeEach(() => setup())
 
-            Query: () => ({
-              items: () => new win.MockList(20),
-            }),
-          }
-        })
-      },
-    })
-  })
   it('can view items', () => {
     cy.get('tbody tr').should('have.length', 20)
   })
   it('can create item', () => {
     cy.get('tbody tr').should('have.length', 20)
     cy.contains('button', 'New Item').click()
-    cy.window().should(win => win.document.activeElement.tagName === 'INPUT')
+    waitForActive('input')
     cy.focused()
       .type('Mr mole')
       .tab()
@@ -53,7 +20,7 @@ describe('Main', () => {
       .tab()
       .type('foobar123')
     cy.get('[data-test="edit-image"]').click()
-    cy.wait(200)
+    waitForActive('[data-test="imageUrl"]')
     cy.focused()
       .type(
         '{selectall}{del}https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fimages3.wikia.nocookie.net%2F__cb20120830122040%2Fscratchpad%2Fimages%2F3%2F36%2FJamjarsBanjoTooie.png&f=1',
@@ -75,7 +42,6 @@ describe('Main', () => {
     cy.get('[data-test="edit"]')
       .eq(2)
       .click()
-    cy.wait(200)
     cy.tab()
       .tab()
       .type('NEW VALUE')
