@@ -3,17 +3,17 @@
   "short_name": "Inventory",
   "icons": [
     {
-      "src": "resources/logo.png",
+      "src": "logo.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "resources/logo.png",
+      "src": "logo.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
-  "start_url": "/dist/index.html",
+  "start_url": "../index.html",
   "display": "fullscreen",
   "orientation": "portrait",
   "background_color": "#000000",
