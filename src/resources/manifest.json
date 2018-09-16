@@ -3,12 +3,12 @@
   "short_name": "Inventory",
   "icons": [
     {
-      "src": "/resources/logo.png",
+      "src": "resources/logo.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/resources/logo.png",
+      "src": "resources/logo.png",
       "sizes": "512x512",
       "type": "image/png"
     }
