@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:10
+      - image: cypress/base:8
 
     steps:
       - add_ssh_keys
@@ -18,6 +18,10 @@ jobs:
             - ~/.npm
             - ~/.cache
       - run: npm run build:mocked
-      - run: node ./scripts/demo.js
+      - run: node ./scripts/demoComment.js
       - store_artifacts:
           path: dist
+      - run: npm run cypress:test
+      - run: node ./scripts/videoComment.js
+      - store_artifacts:
+          path: cypress/videos

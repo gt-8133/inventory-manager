@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "cypress"
+  ],
+  "env": {
+    "cypress/globals": true
+	},
+	"rules": {
+    "spaced-comment": "off",
+    "no-param-reassign": "off"
+	}
+}
