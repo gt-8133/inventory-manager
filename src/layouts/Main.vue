@@ -194,6 +194,7 @@
       <router-view />
     </v-content>
     <v-btn
+      v-if="isMocked"
       fab
       dark
       color
@@ -227,6 +228,11 @@ export default {
       miniVariant: false,
       rightDrawer: false,
     }
+  },
+  computed: {
+    isMocked() {
+      return process.env.MOCKED
+    },
   },
   methods: {
     clearCache() {

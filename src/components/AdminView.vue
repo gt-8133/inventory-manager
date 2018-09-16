@@ -170,7 +170,7 @@
     </v-toolbar>
     <v-data-table
       :headers="headers"
-      :items="allItems"
+      :items="items"
       :search="search"
       :loading="$apollo.loading"
       hide-actions
@@ -207,14 +207,14 @@
         <td class="text-xs-right">{{ props.item.quantityUnits }}: {{ props.item.quantity }}</td>
         <td class="justify-center layout px-0">
           <v-icon
-            small
+            med
             class="mr-2"
             @click="editItem(props.item)"
           >
             edit
           </v-icon>
           <v-icon
-            small
+            med
             @click="deleteItem(props.item)"
           >
             delete
@@ -227,7 +227,6 @@
 <script>
 import gql from 'graphql-tag'
 import * as _ from 'lodash/fp'
-import { setTimeout } from 'timers'
 
 const createItem = gql`
     mutation createItem(
@@ -238,14 +237,14 @@ const createItem = gql`
       $reusable: Boolean!
       $imageUrl: String
       ) {
-      createItem(
+      createItem( data: {
         name: $name
         description: $description,
         quantity: $quantity
         quantityUnits: $quantityUnits
         reusable: $reusable
         imageUrl: $imageUrl
-        ) {
+        }) {
         id
         description
         name
@@ -269,13 +268,17 @@ const updateItem = gql`
     $imageUrl: String
   ) {
     updateItem(
+      where: {
         id: $id
+      }
+      data: {
         name: $name
         description: $description,
         quantity: $quantity
         quantityUnits: $quantityUnits
         reusable: $reusable
         imageUrl: $imageUrl
+      }
         ) {
         id
         description
@@ -290,7 +293,7 @@ const updateItem = gql`
 `
 const deleteItem = gql`
 mutation deleteItem($id:ID!){
-  deleteItem(id:$id){
+  deleteItem(where:{id:$id}){
     id
   }
 }
@@ -298,9 +301,9 @@ mutation deleteItem($id:ID!){
 
 
 // GraphQL query
-const allItems = gql`
-  query allItems {
-    allItems(orderBy: id_ASC) {
+const items = gql`
+  query items {
+    items(orderBy: id_ASC) {
       id
       description
       name
@@ -316,7 +319,7 @@ const allItems = gql`
 
 export default {
   data: () => ({
-    allItems: [],
+    items: [],
     loading: 0,
     dialog: false,
     search: '',
@@ -359,8 +362,8 @@ export default {
 
   // Apollo GraphQL
   apollo: {
-    allItems: {
-      query: allItems,
+    items: {
+      query: items,
       loadingKey: 'loading',
     },
   },
@@ -372,11 +375,11 @@ export default {
 
     newItem() {
       this.editItem(_.clone(this.defaultItem))
+      setTimeout(() => this.$refs.adsf.focus(), 50)
     },
 
     editItem(item) {
       // if focus is called to early, it won't work
-      setTimeout(() => this.$refs.adsf.focus(), 50)
       this.form.editImage = false
       this.form.item = Object.assign({}, item)
       this.dialog = true
@@ -389,15 +392,15 @@ export default {
           variables: { id: item.id },
           loadingKey: 'loading',
           updateQueries: {
-            allItems: prev => ({
-              allItems: _.flow(
+            items: prev => ({
+              items: _.flow(
                 _.filter((i) => {
                   if (i.id === item.id) {
                     return false
                   }
                   return true
                 }),
-              )(prev.allItems),
+              )(prev.items),
             }),
           },
         })
@@ -417,17 +420,17 @@ export default {
           variables: this.form.item,
           loadingKey: 'loading',
           updateQueries: {
-            allItems: prev => ({
+            items: prev => ({
               // append at head of list because we sort the posts reverse chronological
 
-              allItems: _.flow(
+              items: _.flow(
                 _.map((item) => {
                   if (item.id === this.form.item.id) {
                     return this.form.item
                   }
                   return item
                 }),
-              )(prev.allItems),
+              )(prev.items),
             }),
           },
         }).then((data) => {
@@ -443,11 +446,11 @@ export default {
           variables: this.form.item,
           loadingKey: 'loading',
           updateQueries: {
-            allItems: (prev, {
+            items: (prev, {
               mutationResult,
             }) => ({
               // append at head of list because we sort the posts reverse chronological
-              allItems: [mutationResult.data.createItem, ...prev.allItems],
+              items: [mutationResult.data.createItem, ...prev.items],
             }),
           },
         }).then((data) => {
@@ -459,7 +462,7 @@ export default {
     },
     selectImageUrl() {
       console.log(this.$refs.imageUrl)
-      setTimeout(() => this.$refs.imageUrl.focus(), 100)
+      setTimeout(() => this.$refs.imageUrl.focus(), 20)
     },
   },
 }

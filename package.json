@@ -8,13 +8,12 @@
     "start:mocked": "cross-env NODE_ENV=development MOCKED=1 webpack-dev-server --inline --hot --port 3000",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "build:mocked": "cross-env NODE_ENV=development MOCKED=1 webpack --progress --hide-modules",
-    "postinstall": "cd server && npm ci",
     "lint": "eslint --fix --ext .js,.vue src",
     "deploy": "cross-env MOCKED=1 ts-node scripts/deploy.ts",
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,json,css,md}": [
+    "src/**/*.{js,jsx,css,md}": [
       "eslint --fix src",
       "git add"
     ]
@@ -46,6 +45,7 @@
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.0",
     "circle-github-bot": "^1.0.0",
+    "copy-webpack-plugin": "^4.5.2",
     "cross-env": "^1.0.8",
     "css-loader": "^1.0.0",
     "eslint": "^5.6.0",

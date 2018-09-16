@@ -1,0 +1,13 @@
+type Item {
+  id: ID! @unique
+
+  createdAt: DateTime! # read-only (managed by Graphcool)
+  updatedAt: DateTime! # read-only (managed by Graphcool)
+
+  name: String!
+  description: String!
+  imageUrl: String
+  quantity: Int! 
+  quantityUnits: String! 
+  reusable: Boolean!
+}

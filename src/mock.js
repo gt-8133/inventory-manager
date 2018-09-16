@@ -10,7 +10,7 @@ import {
   // AddResolveFunctionsToSchema,
 } from 'graphql-tools'
 import * as _ from 'lodash'
-import schemafile from '../schema.graphql'
+import schemafile from '../server/generated/schema.graphql'
 
 function randomEmoji() {
   return `https://assets-cdn.github.com/images/icons/emoji/unicode/1f3${Math.round(
@@ -23,21 +23,24 @@ export const createMockClient = () => {
 
   const mocks = {
     DateTime: () => new Date(),
-    Item: (...args) => _.defaults(args[1], {
-      name: () => faker.commerce
-        .productName()
-        .split(' ')
-        .slice(1)
-        .join(' '),
-      description: () => faker.lorem.paragraph(),
-      imageUrl: () => randomEmoji(),
-      quantityUnits: 'count',
-      reusable: false,
-      quantity: () => faker.random.number(20),
-    }),
+    Item: (...args) => {
+      console.log(args)
+      return _.defaults(args[1].data, {
+        name: () => faker.commerce
+          .productName()
+          .split(' ')
+          .slice(1)
+          .join(' '),
+        description: () => faker.lorem.paragraph(),
+        imageUrl: () => randomEmoji(),
+        quantityUnits: 'count',
+        reusable: false,
+        quantity: () => faker.random.number(20),
+      })
+    },
 
     Query: () => ({
-      allItems: () => new MockList(10),
+      items: () => new MockList(10),
     }),
   }
 

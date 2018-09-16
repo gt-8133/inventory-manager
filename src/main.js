@@ -19,7 +19,7 @@ const start = () => {
     // Info: https://github.com/graphcool-examples/vue-apollo-instagram-example#2-create-graphql-api-with-graphcool
     return new ApolloClient({
       link: new HttpLink({
-        uri: 'http://localhost:60000/simple/v1/cjllndxls00020107o32kr4h3',
+        uri: 'http://localhost:4466',
       }),
       cache: new InMemoryCache(),
     })
