@@ -44,10 +44,16 @@ export const createMockClient = () => {
     }),
   }
 
+  window.MockList = MockList
+  window.mocks = mocks
+
+  const event = new Event('mocks')
+  window.dispatchEvent(event)
+
   addMockFunctionsToSchema({
     schema,
     preserveResolvers: true,
-    mocks,
+    mocks: window.mocks,
   })
 
   const cache = new InMemoryCache()
