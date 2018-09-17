@@ -50,6 +50,8 @@ Cypress.Commands.add('tab', { prevSubject: 'optional' }, (subject, options) => {
 
 module.exports = {
   waitForActive(selector) {
-    return cy.window().should(win => win.document.activeElement && win.document.activeElement.matches(selector))
+    return cy.window().should((win) => {
+      expect(win.document.activeElement && win.document.activeElement.matches(selector)).ok
+    })
   },
 }
