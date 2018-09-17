@@ -17,7 +17,7 @@
     "precommit": "npm run stop-only && lint-staged",
     "stop-only": "stop-only --folder cypress/integration",
     "cypress:report": "node ./scripts/videoComment",
-    "cypress:run:report": "npm-run-all -s -c cypress:run cypress:report"
+    "cypress:test:report": "npm-run-all -s -c cypress:test cypress:report"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,css,md}": [
