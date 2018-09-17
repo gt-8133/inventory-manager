@@ -10,11 +10,14 @@
     "build:mocked": "cross-env NODE_ENV=development MOCKED=1 webpack --progress --hide-modules",
     "lint": "eslint --fix --ext .js,.vue src",
     "cypress:open": "cypress open -P .",
-    "cypress:run": "cypress run",
+    "cypress": "npm-run-all -p -c start:mocked cypress:open",
+    "cypress:run": "cypress run && echo 'pass' > /tmp/pass",
     "cypress:test": "start-server-and-test start:mocked :3000 cypress:run",
     "deploy": "cross-env MOCKED=1 ts-node scripts/deploy.ts",
     "precommit": "npm run stop-only && lint-staged",
-    "stop-only": "stop-only --folder cypress/integration"
+    "stop-only": "stop-only --folder cypress/integration",
+    "cypress:report": "node ./scripts/videoComment",
+    "cypress:run:report": "npm-run-all -s -c cypress:run cypress:report"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,css,md}": [
@@ -76,8 +79,6 @@
     "style-loader": "^0.23.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
-    "ts-node": "^7.0.1",
-    "typescript": "^3.0.3",
     "vue-loader": "^15.4.1",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.5.17",

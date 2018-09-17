@@ -21,7 +21,6 @@ jobs:
       - run: node ./scripts/demoComment.js
       - store_artifacts:
           path: dist
-      - run: npm run cypress:test
-      - run: node ./scripts/videoComment.js
+      - run: npm run cypress:test:record
       - store_artifacts:
           path: cypress/videos
