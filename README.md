@@ -1,8 +1,8 @@
 <div align="center">
     <img src="docs/readme-logo.png" width="256px">
     <h1>Inventory-Manager</h1>
-    <a href="https://circleci.com/gh/gt-8133/inventory-manager/tree/master">
-    <img src="https://img.shields.io/circleci/project/github/gt-8133/inventory-manager/master.svg">
+    <a href="https://circleci.com/gh/gt-8133/inventory-manager/tree/develop">
+    <img src="https://img.shields.io/circleci/project/github/gt-8133/inventory-manager/develop.svg">
     </a>
     <a href="https://circleci-latest-artifact.herokuapp.com/gt-8133/inventory-manager/develop/dist/index.html">
     <img src="https://img.shields.io/badge/live%20demo-link-blue.svg">
