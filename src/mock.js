@@ -27,7 +27,7 @@ export const createMockClient = () => {
   faker.seed(2)
 
   const mocks = {
-    DateTime: () => new Date(0),
+    DateTime: () => faker.date.past(1),
     Item: (...args) => {
       console.log(args)
       return _.defaults(args[1].data, {

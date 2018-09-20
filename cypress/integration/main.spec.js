@@ -3,6 +3,7 @@ const { waitForActive } = require('../support/commands')
 describe('Main', () => {
   beforeEach(() => {
     cy.on('window:before:load', win => win.localStorage.clear())
+    cy.viewport('iphone-6')
   })
   describe('/dashboard', () => {
     beforeEach(() => cy.visit('http://localhost:3000'))
@@ -33,16 +34,16 @@ describe('Main', () => {
       cy.get('tbody tr')
         .should('have.length', 20)
         .should('contain', 'Concrete Pizza')
-      cy.get('[data-test="delete"]')
-        .eq(2)
+      cy.contains('tr', 'Concrete Pizza')
+        .find('[data-test="delete"]')
         .click()
       cy.get('tbody tr')
         .should('have.length', 19)
         .should('not.contain', 'Concrete Pizza')
     })
     it('can update', () => {
-      cy.get('[data-test="edit"]')
-        .eq(2)
+      cy.contains('tr', 'Concrete Pizza')
+        .find('[data-test="edit"]')
         .click()
       cy.tab()
         .tab()
@@ -72,9 +73,5 @@ describe('Main', () => {
       cy.get('input').eq(1).type('password123')
       cy.contains('button', 'Login').click()
     })
-  })
-
-  describe('/dashboard 2', () => {
-
   })
 })
