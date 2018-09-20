@@ -7,22 +7,27 @@ import {
   addMockFunctionsToSchema,
   makeExecutableSchema,
   MockList,
+  mergeSchemas,
   // AddResolveFunctionsToSchema,
 } from 'graphql-tools'
 import * as _ from 'lodash'
+import gql from 'graphql-tag'
 import schemafile from '../server/generated/schema.graphql'
 
-function randomEmoji() {
-  return `https://assets-cdn.github.com/images/icons/emoji/unicode/1f3${Math.round(
-    Math.random() * 40 + 40,
-  )}.png?`
+function getEmojiUrl(offset) {
+  return `https://assets-cdn.github.com/images/icons/emoji/unicode/1f3${offset}.png?`
 }
 
+
 export const createMockClient = () => {
-  const schema = makeExecutableSchema({ typeDefs: schemafile })
+  const schema1 = makeExecutableSchema({
+    typeDefs: schemafile,
+  })
+
+  faker.seed(2)
 
   const mocks = {
-    DateTime: () => new Date(),
+    DateTime: () => new Date(0),
     Item: (...args) => {
       console.log(args)
       return _.defaults(args[1].data, {
@@ -32,7 +37,7 @@ export const createMockClient = () => {
           .slice(1)
           .join(' '),
         description: () => faker.lorem.paragraph(),
-        imageUrl: () => randomEmoji(),
+        imageUrl: () => getEmojiUrl(faker.random.number({ min: 41, max: 99 })),
         quantityUnits: 'count',
         reusable: false,
         quantity: () => faker.random.number(20),
@@ -40,7 +45,7 @@ export const createMockClient = () => {
     },
 
     Query: () => ({
-      items: () => new MockList(10),
+      items: () => new MockList(20),
     }),
   }
 
@@ -51,9 +56,37 @@ export const createMockClient = () => {
   window.dispatchEvent(event)
 
   addMockFunctionsToSchema({
-    schema,
+    schema: schema1,
     preserveResolvers: true,
     mocks: window.mocks,
+  })
+
+  const schema2 = makeExecutableSchema({
+    typeDefs: gql`
+    type Query {
+      dummy: String
+    }
+    type Mutation {
+      authenticateUser(email:String!, password:String!): LoginResponse
+    }
+    type LoginResponse {
+      token: String
+    }
+    `,
+  })
+
+  addMockFunctionsToSchema({
+    schema: schema2,
+    mocks: {
+      LoginResponse: (...args) => ({
+        token: args[1].email,
+      }),
+    },
+    preserveResolvers: true,
+  })
+
+  const schema = mergeSchemas({
+    schemas: [schema1, schema2],
   })
 
   const cache = new InMemoryCache()

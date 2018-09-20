@@ -14,10 +14,11 @@
 //
 //
 // -- This is a child command --
-
+// @ts-ignore
 const tabSequence = require('ally.js/query/tabsequence')
 
-Cypress.Commands.add('tab', { prevSubject: 'optional' }, (subject, options) => {
+Cypress.Commands.add('tab', { prevSubject: 'optional' }, () => {
+  const subject = cy.state('window').document.activeElement
   const seq = tabSequence({
     strategy: 'quick',
     includeContext: false,
@@ -25,10 +26,11 @@ Cypress.Commands.add('tab', { prevSubject: 'optional' }, (subject, options) => {
     context: cy.state('window').document.documentElement,
   })
 
+
   let ind = 0
   if (subject) {
-    ind = seq.indexOf(subject[0])
-    if (ind === seq.length) {
+    ind = seq.indexOf(subject)
+    if (ind === seq.length || ind === -1) {
       ind = 0
     }
   }
@@ -50,8 +52,6 @@ Cypress.Commands.add('tab', { prevSubject: 'optional' }, (subject, options) => {
 
 module.exports = {
   waitForActive(selector) {
-    return cy.window().should((win) => {
-      expect(win.document.activeElement && win.document.activeElement.matches(selector)).ok
-    })
+    return cy.document().its('activeElement').should('match', selector)
   },
 }
