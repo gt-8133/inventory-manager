@@ -1,6 +1,7 @@
 const { waitForActive } = require('../support/commands')
 
 describe('Main', () => {
+  after(() => new Promise(res => setTimeout(res, 1000)))
   beforeEach(() => {
     cy.on('window:before:load', win => win.localStorage.clear())
     cy.viewport('iphone-6')
