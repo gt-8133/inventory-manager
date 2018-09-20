@@ -52,6 +52,6 @@ Cypress.Commands.add('tab', { prevSubject: 'optional' }, () => {
 
 module.exports = {
   waitForActive(selector) {
-    return cy.document().its('activeElement').should('match', selector)
+    return cy.document().its('activeElement').should('match', selector).should('be.visible')
   },
 }
