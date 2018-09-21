@@ -104,6 +104,7 @@
                   <v-text-field
                     ref="adsf"
                     v-model="form.item.name"
+                    data-test="name-edit"
                     label="Item name"
                   />
                 </v-flex>
@@ -349,7 +350,7 @@ export default {
       description: '',
       quantity: 0,
       quantityUnits: 'count',
-      imageUrl: `https://assets-cdn.github.com/images/icons/emoji/unicode/1f3${Math.round(Math.random() * 40 + 40)}.png?`,
+      imageUrl: 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f340.png?',
       reusable: true,
     },
     form: {

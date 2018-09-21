@@ -89,9 +89,9 @@ export default {
         .then((data) => {
           console.log(data)
         })
-        .catch((e) => {
-          console.log(e)
-        })
+        // .catch((e) => {
+        //   console.log(e)
+        // })
     },
     login() {
       const { email, password } = this
@@ -104,12 +104,12 @@ export default {
       })
         .then((data) => {
           console.log(data)
-          window.localStorage.setItem('auth', data.data.authenticateUser.token)
-          this.onLogin()
+          // window.localStorage.setItem('auth', data.data.authenticateUser.token)
+          // this.onLogin()
         })
-        .catch((e) => {
-          console.log(e)
-        })
+        // .catch((e) => {
+        //   console.log(e)
+        // })
     },
   },
 }
