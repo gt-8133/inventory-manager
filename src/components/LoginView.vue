@@ -104,8 +104,9 @@ export default {
       })
         .then((data) => {
           console.log(data)
-          // window.localStorage.setItem('auth', data.data.authenticateUser.token)
-          // this.onLogin()
+          window.localStorage.setItem('auth', data.data.authenticateUser.token)
+          this.$router.push('dashboard')
+          //this.onLogin()
         })
         // .catch((e) => {
         //   console.log(e)

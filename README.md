@@ -7,6 +7,10 @@
     <a href="https://circleci-latest-artifact.herokuapp.com/gt-8133/inventory-manager/develop/dist/index.html">
     <img src="https://img.shields.io/badge/live%20demo-link-blue.svg">
     </a>
+    <a href="https://circleci-latest-artifact.herokuapp.com/gt-8133/inventory-manager/develop/cypress/videos/main.spec.js.mp4">
+    <img src="https://img.shields.io/badge/cypress-tests-blue.svg">
+    </a>
+        
 <p>An inventory management solution with user controls and admin features.</p>
     
 </div>
