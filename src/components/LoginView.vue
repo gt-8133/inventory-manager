@@ -1,39 +1,41 @@
 <template>
-  <v-container white>
-    <v-form @keydown.native.enter="login()">
-      <v-layout
-        align-center
-        row
-        wrap
-      >
-        <v-flex xs12>
-          <h2 display-3>Login</h2>
-          <br>
-        </v-flex>
-        <v-flex xs12>
-          <v-text-field
-            v-model="email"
-            lg12
-            :rules="emailRules"
-            label="E-mail"
-            solo
-            required
-          />
-        </v-flex>
-        <v-flex xs12>
-          <v-text-field
-            v-model="password"
-            label="password"
-            type="password"
-            solo
-            required
-          />
-        </v-flex>
+  <v-slide-x-transition>
+    <v-container white>
+      <v-form @keydown.native.enter="login()">
+        <v-layout
+          align-center
+          row
+          wrap
+        >
+          <v-flex xs12>
+            <h2 display-3>Login</h2>
+            <br>
+          </v-flex>
+          <v-flex xs12>
+            <v-text-field
+              v-model="email"
+              lg12
+              :rules="emailRules"
+              label="E-mail"
+              solo
+              required
+            />
+          </v-flex>
+          <v-flex xs12>
+            <v-text-field
+              v-model="password"
+              label="password"
+              type="password"
+              solo
+              required
+            />
+          </v-flex>
 
-        <v-btn @click="login()">Login</v-btn>
-      </v-layout>
-    </v-form>
-  </v-container>
+          <v-btn @click="login()">Login</v-btn>
+        </v-layout>
+      </v-form>
+    </v-container>
+  </v-slide-x-transition>
 </template>
 
 <script>
