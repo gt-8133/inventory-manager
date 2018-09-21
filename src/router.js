@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: camera,
+    component: AdminView,
   },
   {
     path: '/dashboard',
