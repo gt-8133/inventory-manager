@@ -70,6 +70,6 @@ describe('Main', () => {
       cy.get('input').eq(0).type('foo@bar.com')
       cy.get('input').eq(1).type('password123')
       cy.contains('button', 'Login').click()
-    })
+      cy.url().should('eq', 'http://localhost:3000/#/dashboard');})
   })
 })
