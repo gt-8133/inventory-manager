@@ -1,5 +1,3 @@
-const { waitForActive } = require('../support/commands')
-
 describe('Main', () => {
   after(() => new Promise(res => setTimeout(res, 1000)))
   beforeEach(() => {
@@ -14,8 +12,7 @@ describe('Main', () => {
     it('can create item', () => {
       cy.get('tbody tr').should('have.length', 20)
       cy.contains('button', 'New Item').click()
-      waitForActive('input')
-      cy.focused()
+      cy.waitForActive('input')
         .type('Mr mole')
         .tab()
         .type('asdf')
@@ -24,8 +21,7 @@ describe('Main', () => {
         .tab()
         .type('foobar123')
       cy.get('[data-test="edit-image"]').click()
-      waitForActive('[data-test="imageUrl"]')
-      cy.focused()
+      cy.waitForActive('[data-test="imageUrl"]')
         .type(
           '{selectall}{del}https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fimages3.wikia.nocookie.net%2F__cb20120830122040%2Fscratchpad%2Fimages%2F3%2F36%2FJamjarsBanjoTooie.png&f=1',
         )
@@ -60,7 +56,8 @@ describe('Main', () => {
     })
     it('can create an empty item', () => {
       cy.contains('button', 'New Item').click()
-      cy.focused().type('{enter}')
+      cy.waitForActive('input')
+        .type('{enter}')
       cy.get('tbody tr').should('have.length', 21)
         .eq(0).contains('0')
     })

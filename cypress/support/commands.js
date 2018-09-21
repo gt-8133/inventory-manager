@@ -41,6 +41,9 @@ Cypress.Commands.add('tab', { prevSubject: 'optional' }, () => {
   newElm.focus()
   return cy.wrap(newElm)
 })
+
+Cypress.Commands.add('waitForActive', selector => cy.document().its('activeElement').should('match', selector).should('be.visible'))
+
 //
 //
 // -- This is a dual command --
