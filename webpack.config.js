@@ -26,7 +26,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(png|jpg|gif|svg|json)$/,
+        test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         query: {
           name: '[name].[ext]?[hash]',
@@ -64,6 +64,9 @@ module.exports = {
       template: './src/index.html',
     }),
   ],
+  node: {
+    fs: 'empty',
+  },
 
   mode: process.env.NODE_ENV,
 }
