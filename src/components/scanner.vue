@@ -204,7 +204,7 @@ export default {
     Instascan.Camera.getCameras().then((cameras) => {
       this.cameras = cameras
       if (cameras.length > 0) {
-        this.activeCamera = this.cameras[0]
+        this.activeCamera = this.cameras[this.cameras.length - 1]
         this.scanner.start(this.activeCamera)
       } else {
         alert('No cameras found.')
