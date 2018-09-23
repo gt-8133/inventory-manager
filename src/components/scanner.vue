@@ -39,7 +39,9 @@
                             solo
                             :items="cameras"
                             item-text="name"
+                            return-object
                             append-icon="switch_camera"
+                            @input="selectCamera()"
                           />
                           <!-- <v-responsive :aspect-ratio="9/9"> -->
                           <video
@@ -145,7 +147,7 @@
 
             </v-btn>
             <v-spacer />
-            <v-btn><v-icon>close</v-icon></v-btn>
+            <v-btn @click="dialog=false"><v-icon>close</v-icon></v-btn>
           </v-card-actions>
         </v-flex>
       </v-card>
@@ -213,9 +215,10 @@ export default {
     formatName(name) {
       return name || '(unknown)'
     },
-    selectCamera(camera) {
-      this.activeCameraId = camera.id
-      this.scanner.start(camera)
+    selectCamera() {
+      console.log(this.cameras)
+      console.log(this.activeCamera)
+      this.scanner.start(this.activeCamera)
     },
     loadItem(name) {
       this.$apollo.query({

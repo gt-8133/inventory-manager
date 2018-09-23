@@ -83,8 +83,8 @@ describe('Main', () => {
     beforeEach(() => {
       cy.visit('http://localhost:3000/#/scanner')
     })
-    it('can scan items', ()=> {
-      cy.window().then((win)=>win.scanQrCode('Concrete Chair'))
+    it('can scan items', () => {
+      cy.window().then(win => win.scanQrCode('Concrete Chair'))
       cy.contains('Concrete Chair')
     })
   })
