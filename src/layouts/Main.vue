@@ -13,6 +13,7 @@
         class="transparent"
         dense
         prominent
+        style="z-index:100000"
       >
         <v-list
           class="pa-0"
@@ -213,8 +214,11 @@
 </template>
 
 <script>
+
 export default {
   name: 'Main',
+  components: {
+  },
   data() {
     return {
       drawer: false,

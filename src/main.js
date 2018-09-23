@@ -43,6 +43,8 @@ const start = () => {
       defaultClient: apolloClient,
     })
 
+    // Vue.config.errorHandler = (err) => { debugger }
+    Vue.config.productionTip = false
     return new Vue({
       el: '#app',
       router,

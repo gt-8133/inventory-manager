@@ -19,6 +19,14 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
+        options: {
+          esModule: true,
+          cacheBusting: false,
+          optimizeSSR: false,
+          loaders: {
+            scss: 'vue-style-loader!css-loader!sass-loader',
+          },
+        },
       },
       {
         test: /\.js$/,
@@ -52,7 +60,7 @@ module.exports = {
     noInfo: false,
     open: true,
   },
-  devtool: '#eval-source-map',
+  devtool: 'cheap-module-source-map',
 
   plugins: [
     new CopyWebpackPlugin([{ from: './src/resources', to: 'resources/' }]),
@@ -67,7 +75,6 @@ module.exports = {
   node: {
     fs: 'empty',
   },
-
   mode: process.env.NODE_ENV,
 }
 

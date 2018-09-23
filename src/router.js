@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import AdminView from './components/AdminView.vue'
 import LoginView from './components/LoginView.vue'
-import camera from './components/camera.vue'
+import scanner from './components/scanner.vue'
 
 Vue.use(VueRouter)
 
@@ -23,9 +23,9 @@ const routes = [
     component: LoginView,
   },
   {
-    path: '/camera',
-    name: 'camera',
-    component: camera,
+    path: '/scanner',
+    name: 'scanner',
+    component: scanner,
   },
 ]
 

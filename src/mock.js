@@ -12,6 +12,7 @@ import {
 } from 'graphql-tools'
 import * as _ from 'lodash'
 import gql from 'graphql-tag'
+import Promise from 'bluebird'
 import schemafile from '../server/generated/schema.graphql'
 
 function getEmojiUrl(offset) {
@@ -80,9 +81,9 @@ export const createMockClient = () => {
   addMockFunctionsToSchema({
     schema: schema2,
     mocks: {
-      LoginResponse: (...args) => ({
+      LoginResponse: (...args) => Promise.resolve({
         token: args[1].email,
-      }),
+      }).delay(200),
     },
     preserveResolvers: true,
   })

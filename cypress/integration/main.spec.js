@@ -1,8 +1,13 @@
+/// <reference tyoes="cypress"/>
 describe('Main', () => {
   after(() => new Promise(res => setTimeout(res, 1000)))
   beforeEach(() => {
-    cy.on('window:before:load', win => win.localStorage.clear())
     cy.viewport('iphone-6')
+  })
+  beforeEach(() => {
+    cy.on('window:before:load', (win) => {
+      win.localStorage.clear()
+    })
   })
   describe('/dashboard', () => {
     beforeEach(() => cy.visit('http://localhost:3000'))
@@ -70,6 +75,17 @@ describe('Main', () => {
       cy.get('input').eq(0).type('foo@bar.com')
       cy.get('input').eq(1).type('password123')
       cy.contains('button', 'Login').click()
-      cy.url().should('eq', 'http://localhost:3000/#/dashboard');})
+      cy.url().should('eq', 'http://localhost:3000/#/dashboard')
+    })
+  })
+
+  describe.only('/scanner', () => {
+    beforeEach(() => {
+      cy.visit('http://localhost:3000/#/scanner')
+    })
+    it('can scan items', ()=> {
+      cy.window().then((win)=>win.scanQrCode('Concrete Chair'))
+      cy.contains('Concrete Chair')
+    })
   })
 })
