@@ -156,7 +156,7 @@
 </template>
 
 <script>
-import Instascan from 'instascan'
+import * as Instascan from 'instascan'
 import gql from 'graphql-tag'
 // import itemCheckout from './item-checkout.vue'
 
@@ -205,7 +205,8 @@ export default {
       this.cameras = cameras
       if (cameras.length > 0) {
         this.activeCamera = this.cameras[this.cameras.length - 1]
-        this.scanner.start(this.activeCamera)
+        this.scanner.camera = this.activeCamera
+        this.scanner.start()
       } else {
         alert('No cameras found.')
       }

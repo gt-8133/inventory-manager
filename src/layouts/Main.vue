@@ -228,6 +228,11 @@ export default {
           title: 'Admin View',
           link: '/dashboard',
         },
+        {
+          icon: 'payment',
+          title: 'Scanner',
+          link: '/scanner',
+        },
       ],
       miniVariant: false,
       rightDrawer: false,
