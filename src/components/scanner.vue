@@ -196,6 +196,7 @@ export default {
     this.scanner = new Instascan.Scanner({
       video: document.getElementById('preview'),
       scanPeriod: 5,
+      mirror: false,
     })
     this.scanner.addListener('scan', (content) => {
       this.loadItem(content)
