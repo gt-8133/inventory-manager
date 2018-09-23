@@ -79,7 +79,7 @@ describe('Main', () => {
     })
   })
 
-  describe.only('/scanner', () => {
+  describe('/scanner', () => {
     beforeEach(() => {
       cy.visit('http://localhost:3000/#/scanner')
     })
