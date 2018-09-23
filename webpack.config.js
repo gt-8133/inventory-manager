@@ -58,7 +58,7 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: false,
-    open: true,
+    open: false,
   },
   devtool: 'cheap-module-source-map',
 

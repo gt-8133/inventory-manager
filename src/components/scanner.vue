@@ -218,9 +218,8 @@ export default {
       return name || '(unknown)'
     },
     selectCamera() {
-      console.log(this.cameras)
-      console.log(this.activeCamera)
-      this.scanner.start(this.activeCamera)
+      this.scanner.camera = this.activeCamera
+      this.scanner.start()
     },
     loadItem(name) {
       this.$apollo.query({
