@@ -114,7 +114,7 @@
       prominent
     >
       <v-toolbar-side-icon
-        class="hidden-lg-and-up"
+        v-show="this.$vuetify.breakpoint.mdAndDown"
         @click.stop="drawer = !drawer"
       />
       <v-toolbar-title>Inventory</v-toolbar-title>
@@ -221,7 +221,7 @@ export default {
   },
   data() {
     return {
-      drawer: false,
+      drawer: this.$vuetify.breakpoint.lgAndUp,
       drawerMenuItems: [
         {
           icon: 'assignment',
