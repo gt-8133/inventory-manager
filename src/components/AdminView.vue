@@ -114,7 +114,7 @@
                       v-model="form.item.description"
                       solo
                       name="input-7-4"
-                      label="Description"
+                      label="Description..."
                   />                </v-flex>
                   <v-flex
                     xs12
@@ -147,6 +147,13 @@
                         <v-switch
                           v-model="form.item.reusable"
                           :label="`Reusable`"
+                          light
+                        />
+                      </v-flex>
+                      <v-flex>
+                        <v-switch
+                          v-model="form.item.backorder"
+                          :label="`BackOrder`"
                           light
                         />
                       </v-flex>
@@ -242,6 +249,7 @@ const createItem = gql`
       $quantity: Int!
       $quantityUnits: String!
       $reusable: Boolean!
+      $backorder: Boolean!
       $imageUrl: String
       ) {
       createItem( data: {
@@ -250,6 +258,7 @@ const createItem = gql`
         quantity: $quantity
         quantityUnits: $quantityUnits
         reusable: $reusable
+        backorder: $backorder
         imageUrl: $imageUrl
         }) {
         id
@@ -260,6 +269,7 @@ const createItem = gql`
         updatedAt
         quantityUnits
         reusable
+        backorder
       }
     }
   `
@@ -272,6 +282,7 @@ const updateItem = gql`
     $quantity: Int!
     $quantityUnits: String!
     $reusable: Boolean!
+    $backorder: Boolean!
     $imageUrl: String
   ) {
     updateItem(
@@ -295,6 +306,7 @@ const updateItem = gql`
         updatedAt
         quantityUnits
         reusable
+        backorder
       }
   }
 `
@@ -319,6 +331,7 @@ const items = gql`
       updatedAt
       quantityUnits
       reusable
+      backorder
     }
   }
 `
@@ -339,6 +352,7 @@ export default {
       },
       { text: 'Last Updated', value: 'updatedAt', align: 'right' },
       { text: 'Quantity', value: 'quantity', align: 'right' },
+      { text: 'Back Order', value: 'backorder', align: 'right' },
       {
         text: 'Actions', value: 'name', align: 'center', sortable: false,
       },
@@ -354,6 +368,7 @@ export default {
       quantityUnits: 'count',
       imageUrl: 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f340.png?',
       reusable: true,
+      backorder: true,
     },
     form: {
       item: {},
