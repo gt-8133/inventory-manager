@@ -1,4 +1,5 @@
-/// <reference tyoes="cypress"/>
+/// <reference types="cypress"/>
+
 describe('Main', () => {
   after(() => new Promise(res => setTimeout(res, 1000)))
   beforeEach(() => {

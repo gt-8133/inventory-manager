@@ -45,7 +45,9 @@ Cypress.Commands.add('tab', { prevSubject: 'optional' }, () => {
 })
 
 Cypress.Commands.add('waitForActive', selector => cy.document().its('activeElement').should('match', selector).should('be.visible'))
-if (process.env.DEMO_VIDEO) {
+
+if (Cypress.env('DEMO')) {
+
   ['click', 'visit', 'type', 'tab'].forEach((commandName) => {
     Cypress.Commands.overwrite(commandName, (originalFn, ...args) => {
       const a = args[0]
