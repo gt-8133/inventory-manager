@@ -232,80 +232,12 @@
   </v-slide-x-transition>
 </template>
 <script>
+
 import gql from 'graphql-tag'
 import * as _ from 'lodash/fp'
-
-const createItem = gql`
-    mutation createItem(
-      $name: String!
-      $description: String!
-      $quantity: Int!
-      $quantityUnits: String!
-      $reusable: Boolean!
-      $imageUrl: String
-      ) {
-      createItem( data: {
-        name: $name
-        description: $description,
-        quantity: $quantity
-        quantityUnits: $quantityUnits
-        reusable: $reusable
-        imageUrl: $imageUrl
-        }) {
-        id
-        description
-        name
-        quantity
-        imageUrl
-        updatedAt
-        quantityUnits
-        reusable
-      }
-    }
-  `
-
-const updateItem = gql`
-  mutation updateItem(
-    $id:ID!
-    $name: String!
-    $description: String!
-    $quantity: Int!
-    $quantityUnits: String!
-    $reusable: Boolean!
-    $imageUrl: String
-  ) {
-    updateItem(
-      where: {
-        id: $id
-      }
-      data: {
-        name: $name
-        description: $description,
-        quantity: $quantity
-        quantityUnits: $quantityUnits
-        reusable: $reusable
-        imageUrl: $imageUrl
-      }
-        ) {
-        id
-        description
-        name
-        quantity
-        imageUrl
-        updatedAt
-        quantityUnits
-        reusable
-      }
-  }
-`
-const deleteItem = gql`
-mutation deleteItem($id:ID!){
-  deleteItem(where:{id:$id}){
-    id
-  }
-}
-`
-
+import {createItem} from '../queries'
+import {updateItem} from '../queries'
+import {deleteItem} from '../queries'
 
 // GraphQL query
 const items = gql`
