@@ -27,7 +27,7 @@
         </v-btn>
         <v-dialog
           v-model="dialog"
-          width="500"
+          width="650"
           :fullscreen="this.$vuetify.breakpoint.xsOnly"
           @keydown.esc="close()"
         >
@@ -114,7 +114,7 @@
                       v-model="form.item.description"
                       solo
                       name="input-7-4"
-                      label="Description..."
+                      label="Description"
                   />                </v-flex>
                   <v-flex
                     xs12
@@ -157,6 +157,39 @@
                           light
                         />
                       </v-flex>
+
+                       <v-spacer></v-spacer>
+
+                      <v-flex xs12>
+                        <v-text-field
+                          slot="activator"
+                          v-model="date"
+                          label="Last Order Date"
+                          prepend-icon="event"
+                          readonly
+                        ></v-text-field>
+                      </v-flex>
+
+                      <v-flex xs12>
+                        <v-text-field
+                          slot="activator"
+                          v-model="date"
+                          label="Last Received Date"
+                          prepend-icon="event"
+                          readonly
+                        ></v-text-field>
+                      </v-flex>
+
+                      <v-flex>
+                        <v-combobox
+                          v-model="select"
+                          :items="sourceLocations"
+                          label="Select all applicable sources"
+                          multiple
+                        ></v-combobox>
+                    </v-flex>
+
+
                     </v-layout>
                   </v-flex>
                 </v-layout>
@@ -339,6 +372,17 @@ const items = gql`
 
 export default {
   data: () => ({
+
+  // location combo box
+
+    sourceLocations: [
+          'location A',
+          'location B',
+          'location C',
+          'location D'
+    ],
+
+
     items: [],
     loading: 0,
     dialog: false,
@@ -349,6 +393,12 @@ export default {
         align: 'left',
         // sortable: false,
         value: 'name',
+      },
+      {
+        text: 'Description',
+        align: 'left',
+        sortable: false,
+        value: 'description',
       },
       { text: 'Last Updated', value: 'updatedAt', align: 'right' },
       { text: 'Quantity', value: 'quantity', align: 'right' },
@@ -488,7 +538,12 @@ export default {
     },
   },
 }
+
+
+
 </script>
+
+
 
 <style>
 .v-dialog__content {
