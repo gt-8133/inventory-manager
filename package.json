@@ -26,21 +26,22 @@
     ]
   },
   "dependencies": {
+    "apollo-cache-inmemory": "^1.2.9",
+    "apollo-cache-persist": "^0.1.1",
     "apollo-client": "^2.4.1",
     "apollo-link-http": "^1.5.4",
+    "apollo-link-schema": "^1.1.0",
+    "bluebird": "^3.5.2",
+    "faker": "^4.1.0",
     "graphql": "^14.0.0",
     "graphql-tag": "^2.9.2",
+    "graphql-tools": "^3.1.1",
+    "lodash": "^4.17.10",
     "vue": "^2.5.17",
     "vue-apollo": "^3.0.0-beta.21",
-    "vuetify": "^1.2.1",
-    "faker": "^4.1.0",
-    "apollo-cache-persist": "^0.1.1",
-    "apollo-cache-inmemory": "^1.2.9",
-    "bluebird": "^3.5.2",
-    "lodash": "^4.17.10",
-    "apollo-link-schema": "^1.1.0",
-    "graphql-tools": "^3.1.1",
-    "vue-router": "^3.0.1"
+    "vue-csv-import": "^1.6.0",
+    "vue-router": "^3.0.1",
+    "vuetify": "^1.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
