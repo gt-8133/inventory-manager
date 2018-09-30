@@ -13,6 +13,7 @@
         class="transparent"
         dense
         prominent
+        style="z-index:100000"
       >
         <v-list
           class="pa-0"
@@ -113,7 +114,7 @@
       prominent
     >
       <v-toolbar-side-icon
-        class="hidden-lg-and-up"
+        v-show="this.$vuetify.breakpoint.mdAndDown"
         @click.stop="drawer = !drawer"
       />
       <v-toolbar-title>Inventory</v-toolbar-title>
@@ -213,16 +214,24 @@
 </template>
 
 <script>
+
 export default {
   name: 'Main',
+  components: {
+  },
   data() {
     return {
-      drawer: false,
+      drawer: this.$vuetify.breakpoint.lgAndUp,
       drawerMenuItems: [
         {
           icon: 'assignment',
           title: 'Admin View',
           link: '/dashboard',
+        },
+        {
+          icon: 'payment',
+          title: 'Scanner',
+          link: '/scanner',
         },
       ],
       miniVariant: false,

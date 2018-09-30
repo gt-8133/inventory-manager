@@ -11,7 +11,36 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
+
 module.exports = (on, config) => {
+  if (/^(develop|master)$/.test(process.env.CIRCLE_BRANCH)) {
+    config.env.DEMO = 1
+  }
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+  on('before:browser:launch', (browser = {}, args) => {
+    // console.log(browser, args) // see what all is in here!
+
+    // browser will look something like this
+    // {
+    //   name: 'chrome',
+    //   displayName: 'Chrome',
+    //   version: '63.0.3239.108',
+    //   path: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    //   majorVersion: '63'
+    // }
+
+    // args are different based on the browser
+    // sometimes an array, sometimes an object
+
+    if (browser.name === 'chrome') {
+      // args.push('--remote-debugging-port=9222')
+      // console.log('CHROME')
+      // whatever you return here becomes the new args
+      return args
+    }
+    return args
+  })
+
+  return config
 }
