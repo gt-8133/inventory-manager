@@ -13,6 +13,9 @@
 
 
 module.exports = (on, config) => {
+  if (/^(develop|master)$/.test(process.env.CIRCLE_BRANCH)) {
+    config.env.DEMO = 1
+  }
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   on('before:browser:launch', (browser = {}, args) => {
@@ -38,4 +41,6 @@ module.exports = (on, config) => {
     }
     return args
   })
+
+  return config
 }

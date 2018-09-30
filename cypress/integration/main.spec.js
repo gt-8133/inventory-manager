@@ -3,7 +3,7 @@
 describe('Main', () => {
   after(() => new Promise(res => setTimeout(res, 1000)))
   beforeEach(() => {
-    cy.viewport('iphone-6')
+    // cy.viewport('iphone-6')
   })
   beforeEach(() => {
     cy.on('window:before:load', (win) => {
@@ -29,7 +29,8 @@ describe('Main', () => {
       cy.get('[data-test="edit-image"]').click()
       cy.waitForActive('[data-test="imageUrl"]')
         .type(
-          '{selectall}{del}https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fimages3.wikia.nocookie.net%2F__cb20120830122040%2Fscratchpad%2Fimages%2F3%2F36%2FJamjarsBanjoTooie.png&f=1',
+          '{selectall}{del}http://images3.wikia.nocookie.net/__cb20120830122040/scratchpad/images/3/36/JamjarsBanjoTooie.png',
+          { delay: 10 },
         )
         .type('{enter}')
     })
@@ -85,8 +86,17 @@ describe('Main', () => {
       cy.visit('http://localhost:3000/#/scanner')
     })
     it('can scan items', () => {
+      cy.waitDemo(1000)
       cy.window().then(win => win.scanQrCode('Concrete Chair'))
-      cy.contains('Concrete Chair')
+      cy.contains('.v-dialog', 'Concrete Chair')
+      cy.contains('button', 'close').click()
+      cy.get('section').contains('Concrete Chair')
+      cy.waitDemo(1000)
+      cy.window().then(win => win.scanQrCode('Wooden Computer'))
+      cy.contains('.v-dialog', 'Wooden Computer')
+      cy.contains('button', 'close').click()
+      cy.get('section').contains('Concrete Chair')
+        .get('section').contains('Wooden Computer')
     })
   })
 })

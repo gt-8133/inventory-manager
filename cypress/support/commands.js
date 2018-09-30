@@ -45,10 +45,11 @@ Cypress.Commands.add('tab', { prevSubject: 'optional' }, () => {
 })
 
 Cypress.Commands.add('waitForActive', selector => cy.document().its('activeElement').should('match', selector).should('be.visible'))
+Cypress.Commands.add('waitDemo', time => (Cypress.env('DEMO') ? cy.wait(time) : null))
 
 if (Cypress.env('DEMO')) {
-
-  ['click', 'visit', 'type', 'tab'].forEach((commandName) => {
+  console.log('demo mode');
+  ['click', 'visit', 'type'].forEach((commandName) => {
     Cypress.Commands.overwrite(commandName, (originalFn, ...args) => {
       const a = args[0]
       // debugger
@@ -56,9 +57,32 @@ if (Cypress.env('DEMO')) {
         a[0].scrollIntoViewIfNeeded({ behavior: 'smooth' })
       }
       // debugger
-      cy.wait(300).then(() => originalFn(...args))
+      return new Promise(res => setTimeout(console.log('waiting') || res, 500)).then(() => originalFn(...args))
     })
   })
+
+
+  // const origType = cy.type
+  // cy.type = function (...args) {
+  //   console.log(args)
+  //   const defaults = {
+  //     delay: 100,
+  //   }
+  //   args[1] = args[1] || {}
+  //   args[1] = Object.assign({}, defaults, args[1])
+  //   return origType.apply(this, args)
+  // }
+
+  Cypress.Commands.overwrite('type', (originalFn, ...args) => {
+    console.log(args)
+    const defaults = {
+      delay: 100,
+    }
+    args[2] = args[2] || {}
+    args[2] = Object.assign({}, defaults, args[2])
+    return originalFn(...args)
+  })
+
   afterEach(() => { cy.wait(2000) })
 
   beforeEach(() => {
@@ -83,7 +107,7 @@ if (Cypress.env('DEMO')) {
       const style = win.document.createElement('style')
       const css = `
     // .cypress_touch_enter {
-    //   opacity:1;
+    //   opacity: 0.5;
     // }
     .cypress_touch_enter {
       opacity:0;
@@ -108,7 +132,7 @@ if (Cypress.env('DEMO')) {
         position:fixed;
         top:${e.clientY - 10}px;
         left:${e.clientX - 10}px;
-        background-color: salmon;
+        background-color: darkgrey;
         width: 20px;
         height: 20px;
         z-index: 1000000;
