@@ -19,6 +19,14 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
+        options: {
+          esModule: true,
+          cacheBusting: false,
+          optimizeSSR: false,
+          loaders: {
+            scss: 'vue-style-loader!css-loader!sass-loader',
+          },
+        },
       },
       {
         test: /\.js$/,
@@ -26,7 +34,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(png|jpg|gif|svg|json)$/,
+        test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         query: {
           name: '[name].[ext]?[hash]',
@@ -50,9 +58,9 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: false,
-    open: true,
+    open: false,
   },
-  devtool: '#eval-source-map',
+  devtool: 'cheap-module-source-map',
 
   plugins: [
     new CopyWebpackPlugin([{ from: './src/resources', to: 'resources/' }]),
@@ -64,7 +72,9 @@ module.exports = {
       template: './src/index.html',
     }),
   ],
-
+  node: {
+    fs: 'empty',
+  },
   mode: process.env.NODE_ENV,
 }
 

@@ -12,6 +12,7 @@ import {
 } from 'graphql-tools'
 import * as _ from 'lodash'
 import gql from 'graphql-tag'
+import Promise from 'bluebird'
 import schemafile from '../server/generated/schema.graphql'
 
 function getEmojiUrl(offset) {
@@ -27,22 +28,24 @@ export const createMockClient = () => {
   faker.seed(2)
 
   const mocks = {
-    DateTime: () => faker.date.past(1),
-    Item: (...args) => {
-      console.log(args)
-      return _.defaults(args[1].data, {
-        name: () => faker.commerce
-          .productName()
-          .split(' ')
-          .slice(1)
-          .join(' '),
-        description: () => faker.lorem.paragraph(),
-        imageUrl: () => getEmojiUrl(faker.random.number({ min: 41, max: 99 })),
-        quantityUnits: 'count',
-        reusable: false,
-        quantity: () => faker.random.number(20),
-      })
+    DateTime: (...args) => {
+      if (args[3].operation.operation === 'mutation') {
+        return new Date()
+      }
+      return faker.date.past(1)
     },
+    Item: (...args) => _.defaults(args[1].data, {
+      name: () => faker.commerce
+        .productName()
+        .split(' ')
+        .slice(1)
+        .join(' '),
+      description: () => faker.lorem.paragraph(),
+      imageUrl: () => getEmojiUrl(faker.random.number({ min: 41, max: 94 })),
+      quantityUnits: 'count',
+      reusable: false,
+      quantity: () => faker.random.number(20),
+    }),
 
     Query: () => ({
       items: () => new MockList(20),
@@ -78,9 +81,9 @@ export const createMockClient = () => {
   addMockFunctionsToSchema({
     schema: schema2,
     mocks: {
-      LoginResponse: (...args) => ({
+      LoginResponse: (...args) => Promise.resolve({
         token: args[1].email,
-      }),
+      }).delay(200),
     },
     preserveResolvers: true,
   })

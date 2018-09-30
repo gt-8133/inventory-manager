@@ -9,6 +9,8 @@
     "spaced-comment": "off",
     "no-param-reassign": "off",
     "no-unused-expressions": "off",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "arrow-body-style": "off",
+    "no-unused-vars": "off"
 	}
 }
