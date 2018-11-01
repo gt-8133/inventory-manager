@@ -127,10 +127,13 @@
                         sm5
                         md5
                       >
-                        <v-text-field
+                       <!-- <v-select v-model="form.item.quantityUnits"  label="unit type" :items="unitType"></v-select> -->
+
+                         <v-text-field
                           v-model="form.item.quantityUnits"
                           label="unit type"
                         />
+
                       </v-flex>
                       <v-flex
                         xs5
@@ -143,6 +146,30 @@
                           type="number"
                         />
                       </v-flex>
+
+                      <!-- <v-flex
+                        xs12
+                      >
+                        
+                        <v-combobox
+                          v-model="form.item.locations"
+                          :items="locations"
+                          label="Select all applicable sources"
+                          multiple
+                        />
+                      </v-flex> -->
+
+                      <v-flex
+                        xs12
+                        sm12
+                        md12
+                      >
+                        <v-text-field
+                          v-model="form.item.locations"
+                          label="locations"
+                        />
+                      </v-flex>
+
                       <v-flex>
                         <v-switch
                           v-model="form.item.reusable"
@@ -150,45 +177,8 @@
                           light
                         />
                       </v-flex>
-                      <v-flex>
-                        <v-switch
-                          v-model="form.item.backorder"
-                          :label="`BackOrder`"
-                          light
-                        />
-                      </v-flex>
 
-                       <v-spacer></v-spacer>
-
-                      <v-flex xs12>
-                        <v-text-field
-                          slot="activator"
-                          v-model="date"
-                          label="Last Order Date"
-                          prepend-icon="event"
-                          readonly
-                        ></v-text-field>
-                      </v-flex>
-
-                      <v-flex xs12>
-                        <v-text-field
-                          slot="activator"
-                          v-model="date"
-                          label="Last Received Date"
-                          prepend-icon="event"
-                          readonly
-                        ></v-text-field>
-                      </v-flex>
-
-                      <v-flex>
-                        <v-combobox
-                          v-model="select"
-                          :items="sourceLocations"
-                          label="Select all applicable sources"
-                          multiple
-                        ></v-combobox>
-                    </v-flex>
-
+                      
 
                     </v-layout>
                   </v-flex>
@@ -247,8 +237,10 @@
               &nbsp;{{ props.item.name }}
             </v-flex>
           </td>
+          <td class="text-xs-left">{{ props.item.description }}</td>
           <td class="text-xs-right">{{ formatDate(props.item.updatedAt) }}</td>
           <td class="text-xs-right">{{ props.item.quantityUnits }}: {{ props.item.quantity }}</td>
+          <td class="text-xs-right">{{ props.item.locations }}</td>
           <td class="justify-center layout px-0">
             <v-icon
               data-test="edit"
@@ -282,8 +274,8 @@ const createItem = gql`
       $quantity: Int!
       $quantityUnits: String!
       $reusable: Boolean!
-      $backorder: Boolean!
       $imageUrl: String
+      $locations: String
       ) {
       createItem( data: {
         name: $name
@@ -291,8 +283,8 @@ const createItem = gql`
         quantity: $quantity
         quantityUnits: $quantityUnits
         reusable: $reusable
-        backorder: $backorder
         imageUrl: $imageUrl
+        locations: $locations
         }) {
         id
         description
@@ -302,7 +294,7 @@ const createItem = gql`
         updatedAt
         quantityUnits
         reusable
-        backorder
+        locations
       }
     }
   `
@@ -315,8 +307,8 @@ const updateItem = gql`
     $quantity: Int!
     $quantityUnits: String!
     $reusable: Boolean!
-    $backorder: Boolean!
     $imageUrl: String
+    $locations: String
   ) {
     updateItem(
       where: {
@@ -329,6 +321,7 @@ const updateItem = gql`
         quantityUnits: $quantityUnits
         reusable: $reusable
         imageUrl: $imageUrl
+        locations: $locations
       }
         ) {
         id
@@ -339,7 +332,7 @@ const updateItem = gql`
         updatedAt
         quantityUnits
         reusable
-        backorder
+        locations
       }
   }
 `
@@ -364,7 +357,7 @@ const items = gql`
       updatedAt
       quantityUnits
       reusable
-      backorder
+      locations
     }
   }
 `
@@ -373,15 +366,33 @@ const items = gql`
 export default {
   data: () => ({
 
-  // location combo box
+    // location combo box
 
-    sourceLocations: [
+    options: [
+        { value: 'a', text: 'This is First option' },
+        { value: 'b', text: 'Default Selected Option' },
+        { value: 'c', text: 'This is another option' },
+        { value: 'd', text: 'This one is disabled', disabled: true },
+        { value: 'e', text: 'This is option e' },
+        { value: 'f', text: 'This is option f' },
+        { value: 'g', text: 'This is option g' }
+      ],
+
+
+    locations: [
           'location A',
           'location B',
           'location C',
           'location D'
     ],
 
+    unitType: [
+      'Box',
+      'Package',
+      'Ounce',
+      'Tube'
+
+    ],
 
     items: [],
     loading: 0,
@@ -400,12 +411,16 @@ export default {
         sortable: false,
         value: 'description',
       },
+
       { text: 'Last Updated', value: 'updatedAt', align: 'right' },
       { text: 'Quantity', value: 'quantity', align: 'right' },
-      { text: 'Back Order', value: 'backorder', align: 'right' },
+      {
+        text: 'Location(s)', value: 'locations', align: 'center', sortable: true,
+      },
       {
         text: 'Actions', value: 'name', align: 'center', sortable: false,
       },
+ 
       // { text: 'Carbs (g)', value: 'carbs' },
       // { text: 'Protein (g)', value: 'protein' },
       // { text: 'Iron (%)', value: 'iron' }
@@ -418,7 +433,7 @@ export default {
       quantityUnits: 'count',
       imageUrl: 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f340.png?',
       reusable: true,
-      backorder: true,
+      locations: 'TBD',
     },
     form: {
       item: {},
@@ -538,12 +553,7 @@ export default {
     },
   },
 }
-
-
-
 </script>
-
-
 
 <style>
 .v-dialog__content {
