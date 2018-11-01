@@ -26,6 +26,8 @@ describe('Main', () => {
         .type('asdf')
         .tab()
         .type('foobar123')
+        .tab()
+        .type('Top Shelf')
       cy.get('[data-test="edit-image"]').click()
       cy.waitForActive('[data-test="imageUrl"]')
         .type(
