@@ -19,6 +19,7 @@ type Item implements Node {
   quantity: Int!
   quantityUnits: String!
   reusable: Boolean!
+  locations: String
 }
 
 # A connection to a list of items.
@@ -38,6 +39,7 @@ input ItemCreateInput {
   quantity: Int!
   quantityUnits: String!
   reusable: Boolean!
+  locations: String
 }
 
 # An edge in a connection.
@@ -80,6 +82,7 @@ type ItemPreviousValues {
   quantity: Int!
   quantityUnits: String!
   reusable: Boolean!
+  locations: String
 }
 
 type ItemSubscriptionPayload {
@@ -120,6 +123,7 @@ input ItemUpdateInput {
   quantity: Int
   quantityUnits: String
   reusable: Boolean
+  locations: String
 }
 
 input ItemWhereInput {
