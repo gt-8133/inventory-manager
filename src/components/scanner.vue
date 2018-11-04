@@ -143,8 +143,8 @@
           <v-divider light />
           <v-card-actions class="pa-3">
             <v-btn>
-              <v-icon dark>shopping_cart</v-icon>
-
+              <v-icon dark>shopping_cart </v-icon>
+              @click="updateInventory"
             </v-btn>
             <v-spacer />
             <v-btn @click="dialog=false"><v-icon>close</v-icon></v-btn>
@@ -168,6 +168,7 @@ query item($name:String!) {
     description
     imageUrl
     quantity
+    threshold
   }
 }
 `
@@ -186,7 +187,7 @@ export default {
       dialog: false,
       dialogItem: null,
       dialogLoading: false,
-
+      threshold: 0
     }
   },
   mounted() {
@@ -200,6 +201,7 @@ export default {
     })
     this.scanner.addListener('scan', (content) => {
       this.loadItem(content)
+      
     })
     Instascan.Camera.getCameras().then((cameras) => {
       this.cameras = cameras
@@ -238,6 +240,18 @@ export default {
         })
     },
   },
+  updateItem(name) {
+    
+  },
+  updateInventory(item) {
+    if (item.quantity <= item.threshold) {
+      this.$notify({
+        group: 'foo',
+        title: 'Inventory low',
+        text: item.name + ' has ' + item.quantity + ' units left.'
+      });
+    }
+  }
 }
 </script>
 

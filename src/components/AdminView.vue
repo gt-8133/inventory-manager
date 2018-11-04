@@ -242,6 +242,7 @@ const createItem = gql`
       $quantity: Int!
       $quantityUnits: String!
       $reusable: Boolean!
+      $threshold: Int!
       $imageUrl: String
       ) {
       createItem( data: {
@@ -260,6 +261,7 @@ const createItem = gql`
         updatedAt
         quantityUnits
         reusable
+        threshold
       }
     }
   `
@@ -273,6 +275,7 @@ const updateItem = gql`
     $quantityUnits: String!
     $reusable: Boolean!
     $imageUrl: String
+    $threshold: Int!
   ) {
     updateItem(
       where: {
@@ -285,6 +288,7 @@ const updateItem = gql`
         quantityUnits: $quantityUnits
         reusable: $reusable
         imageUrl: $imageUrl
+        threshold: $threshold
       }
         ) {
         id
@@ -295,6 +299,7 @@ const updateItem = gql`
         updatedAt
         quantityUnits
         reusable
+        threshold
       }
   }
 `
@@ -319,6 +324,7 @@ const items = gql`
       updatedAt
       quantityUnits
       reusable
+      threshold
     }
   }
 `
@@ -342,6 +348,9 @@ export default {
       {
         text: 'Actions', value: 'name', align: 'center', sortable: false,
       },
+      {
+        text: 'Threshold', value: 'threshold', align: 'right'
+      }
       // { text: 'Carbs (g)', value: 'carbs' },
       // { text: 'Protein (g)', value: 'protein' },
       // { text: 'Iron (%)', value: 'iron' }
@@ -354,6 +363,7 @@ export default {
       quantityUnits: 'count',
       imageUrl: 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f340.png?',
       reusable: true,
+      threshold: 0
     },
     form: {
       item: {},

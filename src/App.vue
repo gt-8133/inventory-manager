@@ -3,7 +3,7 @@
     <slot />
   </component>
 </template>
-
+<notifications group="foo" />
 <script>
 import Main from './layouts/Main.vue'
 

@@ -19,6 +19,7 @@ type Item implements Node {
   quantity: Int!
   quantityUnits: String!
   reusable: Boolean!
+  threshold: Int!
 }
 
 # A connection to a list of items.
@@ -38,6 +39,7 @@ input ItemCreateInput {
   quantity: Int!
   quantityUnits: String!
   reusable: Boolean!
+  threshold: Int!
 }
 
 # An edge in a connection.
@@ -68,6 +70,8 @@ enum ItemOrderByInput {
   quantityUnits_DESC
   reusable_ASC
   reusable_DESC
+  threshold_ASC
+  threshold_DESC
 }
 
 type ItemPreviousValues {
@@ -80,6 +84,7 @@ type ItemPreviousValues {
   quantity: Int!
   quantityUnits: String!
   reusable: Boolean!
+  threshold: Int!
 }
 
 type ItemSubscriptionPayload {
@@ -120,6 +125,7 @@ input ItemUpdateInput {
   quantity: Int
   quantityUnits: String
   reusable: Boolean
+  threshold: Int
 }
 
 input ItemWhereInput {
@@ -397,10 +403,73 @@ input ItemWhereInput {
 
   # All values not ending with the given string.
   quantityUnits_not_ends_with: String
+
+  # All values that are equal to given value.
   reusable: Boolean
 
   # All values that are not equal to given value.
   reusable_not: Boolean
+
+  # All values that are not equal to given value.
+  threshold_not: Int
+
+  # All values that are contained in given list.
+  threshold_in: [Int!]
+
+  # All values that are not contained in given list.
+  threshold_not_in: [Int!]
+
+  # All values less than the given value.
+  threshold_lt: Int
+
+  # All values less than or equal the given value.
+  threshold_lte: Int
+
+  # All values greater than the given value.
+  threshold_gt: Int
+
+  # All values greater than or equal the given value.
+  threshold_gte: Int
+  thresholdUnits: String
+
+  # All values that are not equal to given value.
+  thresholdUnits_not: String
+
+  # All values that are contained in given list.
+  thresholdUnits_in: [String!]
+
+  # All values that are not contained in given list.
+  thresholdUnits_not_in: [String!]
+
+  # All values less than the given value.
+  thresholdUnits_lt: String
+
+  # All values less than or equal the given value.
+  thresholdUnits_lte: String
+
+  # All values greater than the given value.
+  thresholdUnits_gt: String
+
+  # All values greater than or equal the given value.
+  thresholdUnits_gte: String
+
+  # All values containing the given string.
+  thresholdUnits_contains: String
+
+  # All values not containing the given string.
+  thresholdUnits_not_contains: String
+
+  # All values starting with the given string.
+  thresholdUnits_starts_with: String
+
+  # All values not starting with the given string.
+  thresholdUnits_not_starts_with: String
+
+  # All values ending with the given string.
+  thresholdUnits_ends_with: String
+
+  # All values not ending with the given string.
+  thresholdUnits_not_ends_with: String
 }
 
 input ItemWhereUniqueInput {

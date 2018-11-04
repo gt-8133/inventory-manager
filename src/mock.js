@@ -45,6 +45,7 @@ export const createMockClient = () => {
       quantityUnits: 'count',
       reusable: false,
       quantity: () => faker.random.number(20),
+      threshold: () => faker.random.number(20),
     }),
 
     Query: () => ({

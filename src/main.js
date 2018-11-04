@@ -6,9 +6,11 @@ import ApolloClient from 'apollo-client'
 import VueApollo from 'vue-apollo'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { HttpLink } from 'apollo-link-http'
+import Notifications from 'vue-notification'
 import { createMockClient } from './mock'
 import router from './router'
 import App from './App.vue'
+
 
 const start = () => {
   Promise.try(() => {
@@ -25,6 +27,7 @@ const start = () => {
     })
   }).then((apolloClient) => {
     Vue.use(VueApollo)
+    Vue.use(Notifications)
     Vue.use(Vuetify, {
       theme: {
         primary: '#052956',
