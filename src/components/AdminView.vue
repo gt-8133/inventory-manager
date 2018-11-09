@@ -147,7 +147,7 @@
                         />
                       </v-flex>
 
-                      <!-- <v-flex
+                      <v-flex
                         xs12
                       >
                         
@@ -157,7 +157,7 @@
                           label="Select all applicable sources"
                           multiple
                         />
-                      </v-flex> -->
+                      </v-flex>
 
                       <v-flex
                         xs12
