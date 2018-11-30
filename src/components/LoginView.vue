@@ -39,24 +39,26 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
+/*
+  import gql from 'graphql-tag'
 
-const signupUser = gql`
-mutation signupUser($email: String!, $password: String!) {
-  signupUser(email: $email, password: $password) {
-    id
-    token
+  const signupUser = gql`
+  mutation signupUser($email: String!, $password: String!) {
+    signupUser(email: $email, password: $password) {
+      id
+      token
+    }
   }
-}
-`
+  `
 
-const loginUser = gql`
-mutation loginUser($email: String!, $password: String!) {
-  authenticateUser(email: $email, password: $password) {
-    token
+  const loginUser = gql`
+  mutation loginUser($email: String!, $password: String!) {
+    authenticateUser(email: $email, password: $password) {
+      token
+    }
   }
-}
-`
+  `
+*/
 
 export default {
   props: {
@@ -81,6 +83,8 @@ export default {
   methods: {
     signup() {
       const { email, password } = this
+      console.log('sign up')
+      /*
       this.$apollo.mutate({
         mutation: signupUser,
         variables: {
@@ -94,9 +98,12 @@ export default {
         // .catch((e) => {
         //   console.log(e)
         // })
+      */
     },
     login() {
       const { email, password } = this
+      console.log('login')
+      /*
       this.$apollo.mutate({
         mutation: loginUser,
         variables: {
@@ -113,6 +120,7 @@ export default {
         // .catch((e) => {
         //   console.log(e)
         // })
+      */
     },
   },
 }

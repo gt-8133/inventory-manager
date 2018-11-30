@@ -1,23 +1,42 @@
 {
-    "root": true,
-    "env": {
-        "browser": true,
-        "es6": true,
-        "node": true
-    },
-     "parserOptions": {
-         "parser": "babel-eslint"
-     },
-    "extends": [
-        "airbnb-base",
-        "plugin:vue/recommended"
+  "root": true,
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "parser": "babel-eslint"
+  },
+  "extends": [
+    "plugin:vue/recommended"
+  ],
+  "rules": {
+    "semi": [
+      "warn",
+      "never"
     ],
-    "rules": {
-        "semi": ["error", "never"],
-        "import/prefer-default-export": ["off"],
-        "no-alert": ["off"],
-        "prefer-destructuring": ["error", {"array":false}],
-        "max-len": "off",
-        "no-return-assign": "off"
-    }
+    "import/prefer-default-export": [
+      "off"
+    ],
+    "no-alert": [
+      "off"
+    ],
+    "prefer-destructuring": [
+      "warn",
+      {
+        "array": false
+      }
+    ],
+    "max-len": "off",
+    "no-return-assign": "off",
+    "comma-dangle": [
+      "warn",
+      "always"
+    ],
+    "quotes": [
+      "warn",
+      "single"
+    ]
+  }
 }

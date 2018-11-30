@@ -130,11 +130,11 @@
             color="red"
             overlap
           >
-            <span slot="badge">2</span>
+            <span slot="badge">{{$store.state.notifications}}</span>
             <v-icon>notifications</v-icon>
           </v-badge>
         </v-btn>
-        <span>2 unread notifications</span>
+        <span>{{$store.state.notifications}} unread notifications</span>
       </v-tooltip>
 
       <v-menu
@@ -225,8 +225,13 @@ export default {
       drawerMenuItems: [
         {
           icon: 'assignment',
-          title: 'Admin View',
+          title: 'Item Dashboard',
           link: '/dashboard',
+        },
+        {
+          icon: 'assignment',
+          title: 'Event Dashboard',
+          link: '/events',
         },
         {
           icon: 'payment',
