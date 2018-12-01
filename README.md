@@ -54,11 +54,6 @@
 
 # install guide:
 
-
-
-
-## Development
-
 ### Setup
 
 - Install Nodejs
@@ -132,7 +127,8 @@
     ```sh
     npm run start:mocked
     ```
-    
+
+
 
 
 ## Extra Reads
