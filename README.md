@@ -14,9 +14,13 @@
 <p>An inventory management solution with user controls and admin features.</p>
     
 </div>
+**we follow semantic versioning, so this project is in alpha**
 
+## Release Notes: v 0.4.3
 
-## Release Notes
+**we've gone through multiple breaking changes since this project started, but since we are following semantic versioning we are on version 0.4.3**
+**the following feature are since project creation**
+
 
 ### features:
 
@@ -43,7 +47,7 @@
 - user notification for item not returned after checkout
 - inventory management through scale-measured IOT devices
 
-## Known bugs or defects:
+### Known bugs or defects:
 - authentication must be setup by OIT in order to work properly:
   - OIT must set up CAS SSO for this application
 - users scanning barcodes that don't match an item have no error handling
