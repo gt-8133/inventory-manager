@@ -16,6 +16,42 @@
 </div>
 
 
+## Release Notes
+
+### features:
+
+- admin inventory view with edit access:
+    - allow admin to search and edit any item in inventory
+    - allow editing item details includding name, quantity, description, among other features
+    - allow deleting items from inventory
+    - allow creating new item in inventory
+- admin events view
+    - view recent checkouts from inventory
+    - ability to reverse/revert item checkout from inventory
+- admin main view
+    - recieve notification for event checkout
+ - user scanner view
+    - allow user scan QR code and checkout item
+    - can report item as missing
+    - can add app to homescreen
+  
+
+### features not yet implemented:
+
+- admin report generation
+- admin notifications for item below set threshold
+- user notification for item not returned after checkout
+- inventory management through scale-measured IOT devices
+
+## Known bugs or defects:
+- authentication must be setup by OIT in order to work properly:
+  - OIT must set up CAS SSO for this application
+- users scanning barcodes that don't match an item have no error handling
+
+# install guide:
+
+
+
 
 ## Development
 
