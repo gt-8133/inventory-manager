@@ -18,10 +18,10 @@ jobs:
           paths:
             - ~/.npm
             - ~/.cache
-      - run: npm run build:mocked
+      - run: npm run build
       - run: node ./scripts/demoComment.js
       - store_artifacts:
           path: dist
-      - run: npm run cypress:test:report
-      - store_artifacts:
-          path: cypress/videos
+      # - run: npm run cypress:test:report
+      # - store_artifacts:
+      #     path: cypress/videos
