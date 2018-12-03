@@ -7,8 +7,14 @@ import {
   JoinColumn,
   UpdateDateColumn,
   CreateDateColumn,
-  ManyToOne
+  ManyToOne,
+  AfterInsert,
+  EventSubscriber,
+  EntitySubscriberInterface,
+  BeforeInsert,
+  InsertEvent
 } from 'typeorm'
+import { db, getSocket } from '../Server'
 
 export enum StatusType {
   RETURNED = 'returned',
@@ -42,6 +48,10 @@ export class Item {
 
   @Column() imageUrl!: string
 
+  @Column() low!: number
+
+  @Column() high!: number
+
   @Column() quantity!: number
 
   @Column() quantityUnits!: string
@@ -68,4 +78,66 @@ export class Transaction {
 
   @ManyToOne(type => User)
   user!: User
+
+  @AfterInsert()
+  async changeItem() {
+    await db()
+      .createQueryBuilder()
+      .update(Item)
+      .set({ quantity: () => `quantity - ${this.quantity}` })
+      .where('id = :id', { id: this.item.id })
+      .execute()
+
+    // const item = await db()
+    //   .getRepository(Item)
+    //   .findOne({ id: this.item.id })
+    // const oldQuantity = this.item.quantity
+    // item.quantity = item.quantity - this.quantity
+    // console.log(item.name, oldQuantity + '->' + item.quantity)
+    // await db()
+    //   .getRepository(Item)
+    //   .update(item,
+  }
+}
+
+@Entity()
+export class Notification {
+  @PrimaryGeneratedColumn() id!: number
+
+  @Column() unread: boolean = true
+
+  @ManyToOne(type => Transaction)
+  @JoinColumn()
+  transaction!: Transaction
+
+  @ManyToOne(type => User)
+  @JoinColumn()
+  user!: User
+
+}
+
+@EventSubscriber()
+export class TransactionSubscriber implements EntitySubscriberInterface {
+  listenTo() {
+    return Transaction
+  }
+
+  @AfterInsert()
+  async afterInsert(event: InsertEvent<Transaction>) {
+    console.log('new transaction')
+    const transaction = event.entity
+    if (transaction.item.quantity < transaction.item.low) {
+      console.log('new notif')
+      const notification = db().getRepository(Notification).create({
+        transaction,
+        user: transaction.user
+      })
+
+      await db().getRepository(Notification).save(notification)
+
+
+
+      getSocket().emit('notification')
+    }
+  }
 }

@@ -8,12 +8,12 @@ import './registerServiceWorker'
 Vue.config.productionTip = false
 
 
-import { init } from './browserServer'
+// import { init } from './browserServer'
  
 
 async function start() {
 
-  await init()
+  // await init()
 
   console.log('init')
   

@@ -120,22 +120,7 @@
       <v-toolbar-title>Inventory</v-toolbar-title>
       <v-spacer />
 
-      <v-tooltip bottom>
-        <v-btn
-          slot="activator"
-          icon
-          @click.stop="rightDrawer = !rightDrawer"
-        >
-          <v-badge
-            color="red"
-            overlap
-          >
-            <span slot="badge">{{$store.state.notifications}}</span>
-            <v-icon>notifications</v-icon>
-          </v-badge>
-        </v-btn>
-        <span>{{$store.state.notifications}} unread notifications</span>
-      </v-tooltip>
+      <Notification></Notification>
 
       <v-menu
         bottom
@@ -214,10 +199,12 @@
 </template>
 
 <script>
+import Notification from '../components/Notification'
 
 export default {
   name: 'Main',
   components: {
+    Notification
   },
   data() {
     return {
@@ -229,7 +216,7 @@ export default {
           link: '/dashboard',
         },
         {
-          icon: 'assignment',
+          icon: 'event',
           title: 'Event Dashboard',
           link: '/events',
         },

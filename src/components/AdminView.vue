@@ -47,9 +47,11 @@
 </template>
 <script lang='ts'>
 import Vue from "vue";
-import { db } from "../browserServer";
 import { Item } from "../../server/entity/Entities";
+import models from "../../server/models/models";
+
 import EditDialog from "./EditDialog.vue";
+import { mapState } from 'vuex';
 
 const defaultItem: Item = {
   id: 0,
@@ -60,12 +62,13 @@ const defaultItem: Item = {
   quantityUnits: "count",
   imageUrl:
     "https://assets-cdn.github.com/images/icons/emoji/unicode/1f340.png?",
-  reusable: true
+  reusable: true,
+  low: 0,
+  high: 5,
 };
 
 export default Vue.extend({
   data: () => ({
-    items: <Item[]>[],
     loading: 0,
     search: "",
     headers: [
@@ -90,17 +93,23 @@ export default Vue.extend({
       item: defaultItem,
       editImage: false,
       isOpen: false
-    }
+    },
+   
   }),
 
   computed: {
     formTitle() {
       if (this.form.item.id) return "Edit Item";
       return "New Item";
-    }
+    },
+     ...mapState({
+      items: (store: { items: Item[] }) => store.items
+    })
   },
 
   async mounted() {
+    const item = await models.getItem(1)
+    console.log('item!', item)
     console.log("mounted");
 
     await this.fetchDb();
@@ -117,20 +126,14 @@ export default Vue.extend({
     },
 
     async fetchDb() {
-      const items = await db()
-        .getRepository(Item)
-        .find();
-      console.log("mounted item", items);
-      this.items = items;
+      this.$store.dispatch('fetchItems')
     },
 
     async deleteItem(item: Item) {
       if (window.confirm("Are you sure you want to delete this item?")) {
         console.log("delete Item");
-        await db()
-          .getRepository(Item)
-          .delete(item.id);
-        await this.fetchDb();
+        await models.deleteItem(item.id)
+        await this.$store.dispatch('fetchItems')
       }
     },
 
@@ -146,17 +149,10 @@ export default Vue.extend({
         // update item
         // this.form.item.quantity = parseInt(this.form.item.quantity)
         console.log("updated Item");
-        await db()
-          .getRepository(Item)
-          .save(this.form.item);
+        await models.saveItem(this.form.item)
       } else {
         console.log("create item");
-        const newItem = db()
-          .getRepository(Item)
-          .create({ ...this.form.item });
-        await db()
-          .getRepository(Item)
-          .save(newItem);
+        await models.createItem(this.form.item)
       }
       this.close();
       await this.fetchDb();

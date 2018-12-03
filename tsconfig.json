@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "strict": true,
+    "target": "es5",
+    "module": "es6",
+    "strict": false,
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
@@ -33,7 +33,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx", "server/models/models.ts"
+    "tests/**/*.tsx", "server/models/models.ts", "server/ServerFake.ts"
   ],
   "exclude": [
     "node_modules"

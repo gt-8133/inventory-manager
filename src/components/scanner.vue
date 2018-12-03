@@ -116,18 +116,18 @@
 
 <script>
 import * as Instascan from 'instascan'
-import { db } from '@/browserServer'
-import { Item, User } from '../../server/entity/Entities'
-import { UserSession } from '../../server/models/models'
+import models from '../../server/models/models'
+import io from 'socket.io-client'
+// import { UserSession } from '../../server/models/models'
 
-const userSession = new UserSession({
-  user: {
-    id: 1,
-    firstName: 'George',
-    lastName: 'Burdell',
-    age: 130,
-  },
-})
+// const userSession = new UserSession({
+//   user: {
+//     id: 1,
+//     firstName: 'George',
+//     lastName: 'Burdell',
+//     age: 130,
+//   },
+// })
 
 export default {
   // components: { itemCheckout },
@@ -146,6 +146,8 @@ export default {
     }
   },
   async mounted() {
+    models.getItem(1)
+
     window.scanQrCode = id => {
       this.loadItem(id)
     }
@@ -179,15 +181,7 @@ export default {
     },
     async loadItem(id) {
       console.log('load item')
-      console.log(
-        'all items',
-        await db()
-          .getRepository(Item)
-          .find()
-      )
-      const item = await db()
-        .getRepository(Item)
-        .findOne({ id })
+      const item = await models.getItem(id)
       console.log('found item', item)
       this.dialogItem = item
       this.dialogQuantity = 1
@@ -212,7 +206,8 @@ export default {
     },
 
     async checkout() {
-      await userSession.checkoutItem(this.dialogItem, this.dialogQuantity)
+      const someuser = await models.getUser()
+      models.checkoutItem(this.dialogItem, this.dialogQuantity, someuser)
       this.dialog = false
     },
   },
